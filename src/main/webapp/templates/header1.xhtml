@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<style>
+.menu {
+	width: 100%;
+	background-color: #6396e8;
+	color: white;
+	display: block;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	box-shadow: 1px 1px 2px grey;
+}
+</style>
+	<div class="menu">
+		<h:form>
+			<img
+				style="float: left; width: 85px; height: 85px; margin-top: -20px; margin-left: -15px; margin-bottom: -20px;"
+				src="http://orig15.deviantart.net/d14e/f/2012/357/1/9/___nutella_by_editionslikenutella-d5owbns.png" />
+
+			<p:outputLabel
+				style="font-size: 25px; margin-top: 20px; border-color: white; border-width: 1px; border-style:ridge; padding: 2px; border-radius: 3px"
+				value="CALTEC" />
+			<p:outputLabel
+				style="font-size: 15px; margin-top: 15px;font-style: italic;"
+				value=" - UMA NOVA FORMA DE ESTAR EM FORMA " />
+			<p:graphicImage
+				style="border-radius: 1000px; margin:-12px;margin-left:200px; margin-right:10px;margin-top:-8px"
+				value="#{loginMBean.perfilImage}" width="45px" height="45px;" />
+			<p:outputLabel
+				style="font-size: 15px;font-style: italic; margin-top:-5px"
+				value="#{loginMBean.nomeUsuario}" />
+			<p:link outcome="/pages/user/config" value="Config"
+				style="text-decoration: none;color:white; margin-top:7px; margin-left: 30px ">
+			</p:link>
+
+		</h:form>
+	</div>
+
+</ui:composition>

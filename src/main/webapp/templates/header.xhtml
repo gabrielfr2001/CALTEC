@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<style>
+.menu {
+	width: 100%;
+	background-color: #6396e8;
+	color: white;
+	display: block;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	box-shadow: 1px 1px 2px grey;
+}
+</style>
+
+	<div class="menu">
+		<img
+			style="float: left; width: 85px; height: 85px; margin-top: -20px; margin-left: -15px; margin-bottom: -20px;"
+			src="http://orig15.deviantart.net/d14e/f/2012/357/1/9/___nutella_by_editionslikenutella-d5owbns.png" />
+		<h:form>
+			<p:outputLabel
+				style="font-size: 25px; margin-top: 20px; border-color: white; border-width: 1px; border-style:ridge; padding: 2px; border-radius: 3px"
+				value="CALTEC" />
+			<p:outputLabel
+				style="font-size: 15px; margin-top: 15px;font-style: italic;"
+				value=" - UMA NOVA FORMA DE ESTAR EM FORMA " />
+
+			<div style="float:right; display:block; margin-right: 50px">
+				<p:outputLabel style="margin-left: 35px; margin-right: 5px"
+					value="Usuário" />
+				<p:inputText value="#{loginMBean.usuario.usuario}" size="8" />
+
+				<p:outputLabel style="margin-left: 20px; margin-right: 5px"
+					value="Senha" />
+				<p:inputText type="password" value="#{loginMBean.usuario.senha}"
+					size="8" />
+				<p:commandButton style="margin-left:25px" ajax="false" value="Entrar"
+					action="#{loginMBean.logar}" />
+			</div>
+		</h:form>
+	</div>
+
+</ui:composition>

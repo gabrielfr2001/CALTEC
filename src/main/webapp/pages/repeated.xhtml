@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template0.xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:define name="content">
+		<h:form>
+			<div
+				style="background-color: white; width: 1500px; height: 100%; display: block; float: right">
+				<div style="width: 100%; height: 100%; display: block">LOGIN
+					O usuário com o nome #{loginMBean.usuario.nome} já está cadastrado. Tente outro nome</div>
+				<p:commandButton value="Retornar" action="/pages/login"></p:commandButton>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/template0.xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:define name="content">
+		<style>
+.ui-panelgrid td {
+	background-color: #e5e5e5 !important;
+}
+
+.semBorda {
+	border: none !important;
+}
+</style>
+		<h:form enctype="multipart/form-data">
+			<div
+				style="background-color: white; width: 1500px; height: 100%; display: block; float: right">
+				<div style="width: 100%; height: 100%; display: block">
+
+					<h:graphicImage library="caltec" name="images/basket.png"
+						height="7%" width="7%"
+						style="width: 500px; height: 500px; margin-left: 20%; margin-top: 4%; float: left; display: block" />
+					<div
+						style="padding: 20px; margin-top: 150px; background-color: #e5e5e5; width: 550px; height: 450px; display: block; float: left; margin-left: 80px; text-align: center">
+						<p:outputLabel
+							style="font-size:30px; font-weight: 6; margin: 20px"
+							value="ABRA SUA CONTA" />
+						<br /> <br />
+						<p:outputLabel
+							style="font-size:15px; font-weight: 6; margin: 20px"
+							value="Aqui a sua idade não é limite" />
+						<br />
+						<p:outputLabel
+							style="font-size:15px; font-weight: 6; margin: 20px"
+							value="A senha precisa ter mais de 6 dígitos e menos de 128" />
+						<br />
+						<p:outputLabel
+							style="font-size:15px; font-weight: 6; margin: 20px"
+							value="O nome precisa ter mais de 3 dígitos" />
+
+						<div style="padding: 100px; padding-top: 30px">
+
+							<p:panelGrid columns="2" styleClass="semBorda">
+								<p:outputLabel style="font-size:18px; font-weight: 2"
+									value="Nome" />
+								<p:inputText style="margin-left:10px"
+									value="#{loginMBean.usuario.nome}" required="true"
+									requiredMessage="Nome é necessário">
+									<f:validateLength maximum="128" minimum="3" />
+								</p:inputText>
+								<p:outputLabel style="font-size:18px; font-weight: 2"
+									value="Usuário" />
+								<p:inputText style="margin-left:10px"
+									value="#{loginMBean.usuario.usuario}" maxlength="128"
+									required="true" requiredMessage="Usuário é necessário">
+									<f:validateLength maximum="128" minimum="6" />
+								</p:inputText>
+								<p:outputLabel style="font-size:18px; font-weight: 2"
+									value="Email" />
+								<p:inputText style="margin-left:10px"
+									value="#{loginMBean.usuario.email}" maxlength="128"
+									required="true" requiredMessage="Nome é necessário"></p:inputText>
+								<p:outputLabel style="font-size:18px; font-weight: 2"
+									value="Senha" />
+								<p:inputText type="password" style="margin-left:10px"
+									value="#{loginMBean.usuario.senha}" maxlength="128"
+									required="true" requiredMessage="Senha é necessária">
+									<f:validateLength maximum="128" minimum="6" />
+								</p:inputText>
+								<p:outputLabel style="font-size:18px; font-weight: 2"
+									value="Escolher foto" />
+
+								<p:fileUpload styleClass="imagesOnlyMax1MB" skinSimple="true"
+									mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+									value="#{loginMBean.file}" sizeLimit="102400"
+									label="Escolher imagem"/>
+
+							</p:panelGrid>
+							<p:outputLabel
+								style="font-size:15px; font-weight: 6; margin: 20px; padding-top:10px"
+								value="Ao clicar no botão abaixo você passa a concordar com os termos e política de dados" />
+							<div style="margin: auto; width: 300px; margin-top: 18px">
+
+								<p:commandButton
+									style="background-color: green; 
+									color:black"
+									ajax="false" value="ABRIR UMA CONTA"
+									action="#{loginMBean.cadastrar()}" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
