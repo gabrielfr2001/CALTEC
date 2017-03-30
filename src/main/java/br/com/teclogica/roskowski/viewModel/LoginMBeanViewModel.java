@@ -33,9 +33,9 @@ public class LoginMBeanViewModel {
 			u.setImageLink(u.getNome() + DIVIDER + u.getStationaryKey());
 			Filer.saveImage(img, u.getImageLink());
 			imusb.salvar(u);
-			return "/pages/user/main";
+			return "/pages/user/main?faces-redirect=true";
 		} else {
-			return "/pages/repeated";
+			return "/pages/repeated?faces-redirect=true";
 		}
 
 	}
@@ -48,17 +48,17 @@ public class LoginMBeanViewModel {
 		}
 
 		if (check == null) {
-			return "/pages/unautorizhed";
+			return "/pages/unautorizhed?faces-redirect=true";
 		}
 
 		if (check.getSenha().equals(usuario.getSenha())) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 			session.setAttribute("user", check.getId());
-			return "/pages/user/main";
+			return "/pages/user/main?faces-redirect=true";
 		}
 
-		return "/pages/unautorizhed";
+		return "/pages/unautorizhed?faces-redirect=true";
 	}
 
 	public StreamedContent getPerfilImage(String id, IManterUsuarioSBean imusb) {

@@ -17,6 +17,6 @@ public interface IManterRefeicaoSBean {
 
 	public void deletar(TORefeicao r);
 
-	public TORefeicao carregarData(String username, Date str);
+	public TORefeicao carregarData(String username, Date str,String nome);
 
 }

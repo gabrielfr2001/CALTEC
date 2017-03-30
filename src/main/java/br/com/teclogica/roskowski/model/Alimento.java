@@ -1,12 +1,17 @@
 package br.com.teclogica.roskowski.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Alimento {
+public class Alimento implements Serializable {
+
+	private static final long serialVersionUID = 8532334226368606666L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

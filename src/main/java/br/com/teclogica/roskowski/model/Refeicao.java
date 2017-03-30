@@ -1,13 +1,12 @@
 package br.com.teclogica.roskowski.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import br.com.teclogica.roskowski.enumeration.TiposRefeicoes;
 
@@ -16,11 +15,11 @@ public class Refeicao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	@Enumerated
 	private TiposRefeicoes tipo;
-	@OneToMany
-	private List<Unidade> unidades;
 	private Date data;
 	private long userid;
+	private double totalCal;
 
 	public long getId() {
 		return id;
@@ -54,12 +53,12 @@ public class Refeicao {
 		this.userid = userid;
 	}
 
-	public List<Unidade> getUnidades() {
-		return unidades;
+	public double getTotalCal() {
+		return totalCal;
 	}
 
-	public void setUnidades(List<Unidade> unidades) {
-		this.unidades = unidades;
+	public void setTotalCal(double totalCal) {
+		this.totalCal = totalCal;
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
+import br.com.teclogica.roskowski.enumeration.TiposRefeicoes;
 import br.com.teclogica.roskowski.interfaces.IManterRefeicaoSBean;
 import br.com.teclogica.roskowski.model.Refeicao;
 import br.com.teclogica.roskowski.to.TORefeicao;
@@ -38,13 +39,20 @@ public class ManterRefeicaoSBean extends Conn implements IManterRefeicaoSBean {
 			return null;
 	}
 
-
-	public TORefeicao carregarData(String id, Date date) {
-		Query query = em.createQuery("SELECT a FROM Refeicao a WHERE a.userid='" + id + "' and a.data='" + date + "'");
-		if (query.getResultList().size() > 0)
-			return (new TORefeicao().toTORefeicao((Refeicao) query.getResultList().get(0)));
-		else
+	public TORefeicao carregarData(String id, Date date, String nome) {
+		try {
+			Query query = em.createQuery("SELECT a FROM Refeicao a WHERE a.userid='" + id + "' and a.data='" + date
+					+ "' and a.tipo='" + TiposRefeicoes.valueOf(nome).ordinal() + "'");
+			System.out.println("SELECT a FROM Refeicao a WHERE a.userid='" + id + "' and a.data='" + date
+					+ "' and a.tipo='" + TiposRefeicoes.valueOf(nome).ordinal() + "'");
+			if (query.getResultList().size() > 0)
+				return (new TORefeicao().toTORefeicao((Refeicao) query.getResultList().get(0)));
+			else
+				return null;
+		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
+		}
 	}
 
 }

@@ -1,5 +1,6 @@
 package br.com.teclogica.roskowski.sbean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -30,7 +31,7 @@ public class ManterAlimentoSBean extends Conn implements IManterAlimentoSBean {
 	}
 
 	public TOAlimento carregarAlimento(String str) {
-		Query query = em.createQuery("SELECT a FROM Alimento a WHERE a.usuario='" + str + "'");
+		Query query = em.createQuery("SELECT a FROM Alimento a WHERE a.nome='" + str + "'");
 		if (query.getResultList().size() > 0)
 			return (new TOAlimento().toTOAlimento((Alimento) query.getResultList().get(0)));
 		else
@@ -41,8 +42,17 @@ public class ManterAlimentoSBean extends Conn implements IManterAlimentoSBean {
 	public List<TOAlimento> listarPattern(String pattern) {
 		Query query = em.createQuery("SELECT a FROM Alimento a WHERE lower(a.nome) LIKE :pParam");
 		query.setParameter("pParam", "%" + pattern.toLowerCase() + "%");
-		if (query.getResultList().size() > 0)
-			return new TOAlimento().toTOAlimento((Alimento) query.getResultList().get(0));
+
+		@SuppressWarnings("unchecked")
+		List<Object> list = query.getResultList();
+		List<TOAlimento> list2 = new ArrayList<>();
+
+		for (Object o : list) {
+			list2.add(new TOAlimento().toTOAlimento((Alimento) o));
+		}
+
+		if (list2.size() > 0)
+			return list2;
 		else
 			return null;
 	}

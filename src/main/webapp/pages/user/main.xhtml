@@ -14,16 +14,29 @@
 	height: 310px;
 	float: left;
 	margin: 3px;
+	overflow: hidden
 }
 
 .sub-header {
 	background-color: #76a1e8;
 	width: 100%;
-	height: 100px;
+	height: 61px;
 	margin-top: 0px;
 	margin-left: -40px;
 	margin-bottom: 40px;
 	margin-left: -40px;
+	text-align: center;
+	vertical-align: middle;
+	overflow: hidden
+}
+
+.sub-div {
+	display: table-cell;
+	float: none;
+	text-align: center;
+	vertical-align: middle;
+	margin: 100px;
+	overflow: hidden
 }
 
 .div-header {
@@ -31,6 +44,7 @@
 	padding: 10px;
 	text-align: center;
 	border-radius: 20px 20px 0px 0px;
+	overflow: hidden
 }
 
 .sub-sub-header {
@@ -39,53 +53,120 @@
 	height: 30px;
 	margin-top: -40px;
 	margin-left: -40px;
+	overflow: hidden
 }
 </style>
-		<div
-			style="padding: 40px; width: 100%; overflow: hidden; background-image: url('https://www.builddirect.com/learning-center/wp-content/uploads/2015/01/mosaic-parquet-oak.jpg')">
-			<div class="sub-sub-header"></div>
-			<div class="sub-header"></div>
-			<div>
-				<div id="d01" class="block">
-					<div class="div-header">
-						<p:outputLabel value="Café da manhã"
-							style="font-size:30px;color:white"></p:outputLabel>
-					</div>
-					<p:dataGrid var="food" layout="grid"
-						value="#{mainMBean.r1.unidades}" columns="4">
-						#{food.alimento.nome}
-					</p:dataGrid>
-				</div>
-				<div id="d01" class="block">
-					<div class="div-header">
-						<p:outputLabel value="Lanche da manhã"
-							style="font-size:30px;color:white"></p:outputLabel>
-					</div>
-				</div>
-				<div id="d01" class="block">
-					<div class="div-header">
-						<p:outputLabel value="Almoço" style="font-size:30px;color:white"></p:outputLabel>
+		<h:form id="f">
+			<div
+				style="padding: 40px; width: 100%; overflow: hidden; background-image: url('http://cevisa.org.br/blog/wp-content/uploads/2016/03/Disease-Fighting-Fruits-to-Maintain-Your-Health-1024x640.jpg'); background-size: 1400px">
+				<div class="sub-header">
+					<div class="sub-div">
+						<p:panel style="float: right;padding:8px">
+							<p:commandButton action="#{mainMBean.adicionarCafe}"
+								value="Relatórios" icon="fa fa-plus"
+								style="font-size:14.2px;background-color:green;color:black"
+								update="grid0, @form">
+							</p:commandButton>
+						</p:panel>
+						<p:panel style="float: left">
+							<p:calendar id="button" value="#{mainMBean.data}" showOn="button">
+								<p:ajax event="dateSelect" listener="#{mainMBean.updateDate}"
+									update="f" />
+							</p:calendar>
+						</p:panel>
 					</div>
 				</div>
+				<div>
+					<div id="d01" class="block">
+						<div class="div-header">
+							<p:outputLabel value="Café da manhã"
+								style="font-size:30px;color:white"></p:outputLabel>
+						</div>
+						<h:panelGrid columns="3"
+							style="background-color:white; margin-left: 2px">
+							<p:autoComplete id="simple0" placeholder="Alimento"
+								value="#{mainMBean.unidade.alimento}"
+								completeMethod="#{mainMBean.complete}" var="comida"
+								itemLabel="#{comida.nome}" itemValue="#{comida}"
+								converter="gConverter" style="margin-left:6px"
+								forceSelection="true" size="16">
 
-				<div id="d01" class="block">
-					<div class="div-header">
-						<p:outputLabel value="Lanche da tarde"
-							style="font-size:30px;color:white"></p:outputLabel>
+								<f:facet name="itemtip">
+									<h:panelGrid columns="2" cellpadding="5">
+										<f:facet name="header">
+											<h:outputText value="#{comida.nome}" />
+										</f:facet>
+										<h:outputText value="Calorias:" />
+										<h:outputText value="#{comida.calorias}cal" />
+										<h:outputText value="Referência" />
+										<h:outputText value="#{comida.gramas}g" />
+									</h:panelGrid>
+								</f:facet>
+							</p:autoComplete>
+							<p:inputNumber thousandSeparator=""
+								value="#{mainMBean.unidade.quantidade}" size="4" min="1"
+								placeholder="Qtd-g" />
+							<p:commandButton action="#{mainMBean.adicionarCafe}"
+								value="Inserir" icon="fa fa-plus"
+								style="font-size:14.2px;background-color:green;color:black"
+								update="grid0, @form">
+							</p:commandButton>
+						</h:panelGrid>
+						<p:dataGrid var="food" layout="grid" id="grid0"
+							value="#{mainMBean.carregarUnidades('r1')}" columns="3"
+							style="padding:0px;height: 100px;background-color:none;background:none"
+							paginator="true" rows="2" paginatorPosition="top">
+							<h:panelGrid style="padding:3px;width:100%;margin:-1px">
+
+								<p:panel style="background-color:yellow;padding:0px;margin:0px">
+									<i class="fa fa-circle" style="color:#{food.alimento.color};float:right;margin-right:-8px"
+										title="Atenção"></i>
+									<p:outputLabel value="#{food.alimento.nome}"
+										style="background-color:orange;padding:1px;border-radius:4px" />
+
+									<p:remoteCommand name="rc" action="#{mainMBean.excluirCafe()}"></p:remoteCommand>
+									<p:commandButton icon="fa fa-times" oncomplete="rc()"
+										onclick="alert('a')"
+										style="width:0px; float:right;height:0px;margin-right:-2px" />
+
+									<br></br>
+									<p:outputLabel value="#{food.quantidade}g" />
+									<br></br>
+									<p:outputLabel value="#{food.cal}cal" />
+								</p:panel>
+							</h:panelGrid>
+						</p:dataGrid>
 					</div>
-				</div>
-				<div id="d01" class="block">
-					<div class="div-header">
-						<p:outputLabel value="Janta" style="font-size:30px;color:white"></p:outputLabel>
+					<div id="d01" class="block">
+						<div class="div-header">
+							<p:outputLabel value="Lanche da manhã"
+								style="font-size:30px;color:white"></p:outputLabel>
+						</div>
 					</div>
-				</div>
-				<div id="d01" class="block">
-					<div class="div-header">
-						<p:outputLabel value="Lanche da madrugada"
-							style="font-size:30px;color:white"></p:outputLabel>
+					<div id="d01" class="block">
+						<div class="div-header">
+							<p:outputLabel value="Almoço" style="font-size:30px;color:white"></p:outputLabel>
+						</div>
+					</div>
+
+					<div id="d01" class="block">
+						<div class="div-header">
+							<p:outputLabel value="Lanche da tarde"
+								style="font-size:30px;color:white"></p:outputLabel>
+						</div>
+					</div>
+					<div id="d01" class="block">
+						<div class="div-header">
+							<p:outputLabel value="Janta" style="font-size:30px;color:white"></p:outputLabel>
+						</div>
+					</div>
+					<div id="d01" class="block">
+						<div class="div-header">
+							<p:outputLabel value="Ceia" style="font-size:30px;color:white"></p:outputLabel>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</h:form>
 	</ui:define>
 </ui:composition>

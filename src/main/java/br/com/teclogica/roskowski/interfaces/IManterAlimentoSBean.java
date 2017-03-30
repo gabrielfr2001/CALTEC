@@ -14,4 +14,6 @@ public interface IManterAlimentoSBean {
 	public TOAlimento carregar(String id);
 
 	public void deletar(TOAlimento a);
+
+	public TOAlimento carregarAlimento(String str);
 }

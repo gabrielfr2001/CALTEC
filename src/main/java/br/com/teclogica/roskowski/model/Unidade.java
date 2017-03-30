@@ -1,19 +1,28 @@
 package br.com.teclogica.roskowski.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Unidade {
+public class Unidade implements Serializable{
+	
+	private static final long serialVersionUID = -9067696081111186706L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private double quantidade;
-	@OneToOne
-	private Alimento alimento;
+	private int id;
 
+	private double cal;
+	private double quantidade;
+	@ManyToOne
+	private Alimento alimento;
+	private long refeicaoid;
+	
 	public double getQuantidade() {
 		return quantidade;
 	}
@@ -28,5 +37,29 @@ public class Unidade {
 
 	public void setAlimento(Alimento alimento) {
 		this.alimento = alimento;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public double getCal() {
+		return cal;
+	}
+
+	public void setCal(double cal) {
+		this.cal = cal;
+	}
+
+	public long getRefeicaoId() {
+		return refeicaoid;
+	}
+
+	public void setRefeicaoid(long refeicaoId) {
+		this.refeicaoid = refeicaoId;
 	}
 }

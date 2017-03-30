@@ -2,8 +2,8 @@ package br.com.teclogica.roskowski.enumeration;
 
 public enum TiposRefeicoes {
 
-	CAFE_DA_MANHA("Café da manhã"), LANCHE_DA_MANHA("Lanche da manhã"), ALMOCO("Almoço"), LANCHE_DA_TARDE(
-			"Lanche da tarde"), JANTAR("Jantar"), LANCHE_MADRUGADA("Lanche da madrugada");
+	CAFE_DA_MANHA("CAFE_DA_MANHA"), LANCHE_DA_MANHA("LANCHE_DA_MANHA"), ALMOCO("ALMOCO"), LANCHE_DA_TARDE(
+			"LANCHE_DA_TARDE"), JANTAR("JANTAR"), LANCHE_MADRUGADA("LANCHE_MADRUGADA");
 
 	private String nome;
 
