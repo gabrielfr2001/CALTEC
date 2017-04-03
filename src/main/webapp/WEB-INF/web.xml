@@ -17,5 +17,12 @@
 		<error-code>404</error-code>
 		<location>/pages/errors/notFound.xhtml</location>
 	</error-page>
-
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>hot-sneaks</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
 </web-app>

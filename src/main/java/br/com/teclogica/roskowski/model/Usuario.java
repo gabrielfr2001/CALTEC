@@ -18,6 +18,7 @@ public class Usuario {
 	private String senha;
 	private int stationaryKey;
 	private long totalIngerido;
+	private String tipo;
 
 	public Usuario() {
 	}
@@ -45,14 +46,6 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	// public Image getFoto() {
-	// return foto;
-	// }
-
-	/// public void setFoto(Image foto) {
-	// this.foto = foto;
-	// }
 
 	public long getLimiteDiario() {
 		return limiteDiario;
@@ -100,5 +93,13 @@ public class Usuario {
 
 	public void setStationaryKey(int stationaryKey) {
 		this.stationaryKey = stationaryKey;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 }

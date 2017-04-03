@@ -53,26 +53,33 @@
 	height: 30px;
 	margin-top: -40px;
 	margin-left: -40px;
-	overflow: hidden
+	overflow: hidden;
 }
 </style>
 		<h:form id="f">
 			<div
-				style="padding: 40px; width: 100%; overflow: hidden; background-image: url('http://cevisa.org.br/blog/wp-content/uploads/2016/03/Disease-Fighting-Fruits-to-Maintain-Your-Health-1024x640.jpg'); background-size: 1400px">
+				style="padding: 40px; width: 100%; overflow: hidden; background-color: lightgrey">
 				<div class="sub-header">
 					<div class="sub-div">
-						<p:panel style="float: right;padding:8px">
-							<p:commandButton action="#{mainMBean.adicionarCafe}"
-								value="Relatórios" icon="fa fa-plus"
-								style="font-size:14.2px;background-color:green;color:black"
-								update="grid0, @form">
-							</p:commandButton>
+						<p:panel style="float: left;padding:4px">
+							<p:menuButton value="Relatórios">
+								<p:menuitem value="Diário" actionListener="#{menuView.save}" />
+								<p:menuitem value="Semanal" actionListener="#{menuView.update}" />
+								<p:menuitem value="Menlsal" actionListener="#{menuView.delete}" />
+							</p:menuButton>
+
 						</p:panel>
 						<p:panel style="float: left">
-							<p:calendar id="button" value="#{mainMBean.data}" showOn="button">
+							<p:calendar id="right" value="#{mainMBean.data}" showOn="button">
 								<p:ajax event="dateSelect" listener="#{mainMBean.updateDate}"
 									update="f" />
 							</p:calendar>
+						</p:panel>
+						<p:panel style="float: left;height: 52px;padding:8px">
+							<p:commandButton action="#{mainMBean.redirectGraphs}"
+								value="Gráficos" icon="fa fa-bar-chart"
+								style="font-size:14.2px;background-color:green;color:black"
+								update="grid0, @form" />
 						</p:panel>
 					</div>
 				</div>
@@ -81,6 +88,8 @@
 						<div class="div-header">
 							<p:outputLabel value="Café da manhã"
 								style="font-size:30px;color:white"></p:outputLabel>
+							<i class="fa fa-circle"
+								style="color:#{mainMBean.r1.compositeColor};float:right;margin-right:8px;margin-top:10px;text-shadow: 1px 1px 2px white;" title="Atenção"></i>
 						</div>
 						<h:panelGrid columns="3"
 							style="background-color:white; margin-left: 2px">
@@ -89,7 +98,7 @@
 								completeMethod="#{mainMBean.complete}" var="comida"
 								itemLabel="#{comida.nome}" itemValue="#{comida}"
 								converter="gConverter" style="margin-left:6px"
-								forceSelection="true" size="16">
+								forceSelection="true" size="20">
 
 								<f:facet name="itemtip">
 									<h:panelGrid columns="2" cellpadding="5">
@@ -105,7 +114,7 @@
 							</p:autoComplete>
 							<p:inputNumber thousandSeparator=""
 								value="#{mainMBean.unidade.quantidade}" size="4" min="1"
-								placeholder="Qtd-g" />
+								placeholder="Qtd-g" maxValue="9999" />
 							<p:commandButton action="#{mainMBean.adicionarCafe}"
 								value="Inserir" icon="fa fa-plus"
 								style="font-size:14.2px;background-color:green;color:black"
@@ -116,19 +125,19 @@
 							value="#{mainMBean.carregarUnidades('r1')}" columns="3"
 							style="padding:0px;height: 100px;background-color:none;background:none"
 							paginator="true" rows="2" paginatorPosition="top">
-							<h:panelGrid style="padding:3px;width:100%;margin:-1px">
-
-								<p:panel style="background-color:yellow;padding:0px;margin:0px">
-									<i class="fa fa-circle" style="color:#{food.alimento.color};float:right;margin-right:-8px"
-										title="Atenção"></i>
+							<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
+								<p:panel style="padding:0px;margin:0px">
+									<i class="fa fa-circle"
+										style="color:#{food.alimento.compositeColor};float:right;margin-right:-8px" title="Atenção"></i>
 									<p:outputLabel value="#{food.alimento.nome}"
-										style="background-color:orange;padding:1px;border-radius:4px" />
-
-									<p:remoteCommand name="rc" action="#{mainMBean.excluirCafe()}"></p:remoteCommand>
-									<p:commandButton icon="fa fa-times" oncomplete="rc()"
-										onclick="alert('a')"
-										style="width:0px; float:right;height:0px;margin-right:-2px" />
-
+										style=";padding:1px;border-radius:4px" />
+									<p:commandButton icon="fa fa-times"
+										oncomplete="#{mainMBean.deletar()}"
+										style=" width:0px; float:right;height:0px;margin-right:-2px"
+										update="f,grid0">
+										<f:setPropertyActionListener target="#{mainMBean.unidade}"
+											value="#{food}" />
+									</p:commandButton>
 									<br></br>
 									<p:outputLabel value="#{food.quantidade}g" />
 									<br></br>
@@ -148,7 +157,6 @@
 							<p:outputLabel value="Almoço" style="font-size:30px;color:white"></p:outputLabel>
 						</div>
 					</div>
-
 					<div id="d01" class="block">
 						<div class="div-header">
 							<p:outputLabel value="Lanche da tarde"

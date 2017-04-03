@@ -80,7 +80,13 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 	}
 
 	public void updateDate() {
+		// r1 = lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean,
+		// data);
+	}
 
+	public void deletar() {
+		lmbvw.deletar(unidade, sssBean);
+		unidade = new TOUnidade();
 	}
 
 	public void cadastrarCafeDaManha() {
@@ -92,6 +98,9 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 	}
 
 	public List<TOUnidade> carregarUnidades(String str) {
+		if (r1 == null) {
+			r1 = new TORefeicao();
+		}
 		r1.setData(data);
 		Long l = Long.parseLong(getUsuarioSessao());
 		r1.setUserid(l);
@@ -128,7 +137,9 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 		r1.setTotalCal(r1.getTotalCal() + unidade.getCal());
 		Long l = Long.parseLong(getUsuarioSessao());
 		r1.setUserid(l);
-
+		r1.setCorTotal(Integer
+				.toString(Integer.parseInt(r1.getCorTotal()) + Integer.parseInt(unidade.getAlimento().getColor())));
+		r1.setTotalUnit(r1.getTotalUnit() + 1);
 		r1.setTipo(TiposRefeicoes.CAFE_DA_MANHA);
 		try {
 			lmbvw.salvar(r1, ssssBean);
@@ -136,7 +147,6 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 			e.printStackTrace();
 		}
 		unidade.setAlimento(lmbvw.carregarComida(unidade.getAlimento().getNome(), ssBean));
-
 		unidade.setRefeicaoId(r1.getId());
 		try {
 			lmbvw.salvar(unidade, sssBean);
@@ -145,6 +155,10 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 		}
 		unidade = new TOUnidade();
 
+	}
+
+	public String redirectGraphs() {
+		return "/pages/user/graphs?faces-redirect=true";
 	}
 
 	public void excluirCafe() {

@@ -50,7 +50,7 @@
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>hot-sneaks</artifactId>
-			<version>1.0.6</version>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 	<repositories>
@@ -60,5 +60,4 @@
 			<url>http://repository.primefaces.org</url>
 		</repository>
 	</repositories>
-
 </project>

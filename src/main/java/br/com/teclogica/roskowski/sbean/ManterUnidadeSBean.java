@@ -28,7 +28,12 @@ public class ManterUnidadeSBean extends Conn implements IManterUnidadeSBean {
 	}
 
 	public void deletar(TOUnidade u) {
-		em.remove(u.toUnidade());
+		if (u.getId() != 0) {
+			Unidade unidade = em.find(Unidade.class, u.getId());
+			if (unidade != null) {
+				em.remove(unidade);
+			}
+		}
 	}
 
 	public TOUnidade carregarUsuario(String str) {

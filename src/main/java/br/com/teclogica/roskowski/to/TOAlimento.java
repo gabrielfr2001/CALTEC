@@ -8,7 +8,7 @@ import br.com.teclogica.roskowski.model.Alimento;
 public class TOAlimento implements Serializable, BaseInterface {
 
 	private static final long serialVersionUID = -6894371188017900703L;
-	
+
 	private long id;
 	private String nome;
 	private String color;
@@ -34,6 +34,13 @@ public class TOAlimento implements Serializable, BaseInterface {
 
 	public String getColor() {
 		return color;
+	}
+
+	public String getCompositeColor() {
+		int r = (255 * Integer.parseInt(color)) / 100;
+		int g = (255 * (100 - Integer.parseInt(color))) / 100;
+		int b = 0;
+		return String.format("#%02x%02x%02x", r, g, b);
 	}
 
 	public void setColor(String color) {
@@ -65,7 +72,7 @@ public class TOAlimento implements Serializable, BaseInterface {
 	}
 
 	public Alimento toAlimento() {
-		Alimento alimento= new Alimento();
+		Alimento alimento = new Alimento();
 
 		alimento.setCalorias(calorias);
 		alimento.setColor(color);
@@ -73,11 +80,11 @@ public class TOAlimento implements Serializable, BaseInterface {
 		alimento.setImageLink(imageLink);
 		alimento.setGramas(gramas);
 		alimento.setNome(nome);
-		
+
 		return alimento;
 	}
 
-	public TOAlimento toTOAlimento	(Alimento u) {
+	public TOAlimento toTOAlimento(Alimento u) {
 
 		this.setCalorias(u.getCalorias());
 		this.setColor(u.getColor());
@@ -85,7 +92,7 @@ public class TOAlimento implements Serializable, BaseInterface {
 		this.setId(u.getId());
 		this.setImageLink(u.getImageLink());
 		this.setNome(u.getNome());
-		
+
 		return this;
 	}
 

@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -47,6 +48,10 @@ public class LoginMBean extends AbstractCommonMBean implements Serializable {
 		return "";
 	}
 
+	public String redirectAdmin() {
+		return "/pages/admin/alimento?faces-redirect=true";
+	}
+
 	public StreamedContent getPerfilImage() {
 		return lmbvw.getPerfilImage(getUsuarioSessao(), sBean);
 	}
@@ -63,6 +68,12 @@ public class LoginMBean extends AbstractCommonMBean implements Serializable {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		return sessionMap.get("user").toString();
+	}
+
+	public boolean getUsuarioTipo() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		return session.getAttribute("user_tipo").toString().equals("user");
 	}
 
 	@Override

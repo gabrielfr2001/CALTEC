@@ -15,6 +15,7 @@ public class TOUsuario {
 	private Image foto;
 	private long limiteDiario;
 	private String senha;
+	private String tipo;
 	private long totalIngerido;
 
 	public TOUsuario() {
@@ -87,6 +88,7 @@ public class TOUsuario {
 		user.setSenha(senha);
 		user.setStationaryKey(stationaryKey);
 		user.setTotalIngerido(totalIngerido);
+		user.setTipo(tipo);
 
 		return user;
 	}
@@ -102,6 +104,7 @@ public class TOUsuario {
 		this.totalIngerido = u.getTotalIngerido();
 		this.imageLink = u.getImageLink();
 		this.stationaryKey = u.getStationaryKey();
+		this.tipo = u.getTipo();
 		return this;
 	}
 
@@ -127,5 +130,13 @@ public class TOUsuario {
 
 	public void setStationaryKey(int stationaryKey) {
 		this.stationaryKey = stationaryKey;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 }

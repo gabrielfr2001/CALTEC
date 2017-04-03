@@ -20,6 +20,8 @@ public class Refeicao {
 	private Date data;
 	private long userid;
 	private double totalCal;
+	private String corTotal;
+	private int totalUnit;
 
 	public long getId() {
 		return id;
@@ -59,6 +61,22 @@ public class Refeicao {
 
 	public void setTotalCal(double totalCal) {
 		this.totalCal = totalCal;
+	}
+
+	public String getCorTotal() {
+		return corTotal;
+	}
+
+	public void setCorTotal(String corTotal) {
+		this.corTotal = corTotal;
+	}
+
+	public int getTotalUnit() {
+		return totalUnit;
+	}
+
+	public void setTotalUnit(int totalUnit) {
+		this.totalUnit = totalUnit;
 	}
 
 }

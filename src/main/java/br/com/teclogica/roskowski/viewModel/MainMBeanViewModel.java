@@ -86,4 +86,8 @@ public class MainMBeanViewModel {
 		return sssBean.carregarRefeicao(id);
 	}
 
+	public void deletar(TOUnidade unidade, IManterUnidadeSBean sssBean) {
+		sssBean.deletar(unidade);
+	}
+
 }
