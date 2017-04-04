@@ -4,6 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/templates/template1.xhtml"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ct="http://java.sun.com/jsf/composite/caltec/components/refeicao"
 	xmlns:h="http://java.sun.com/jsf/html">
 	<ui:define name="content">
 		<style>
@@ -121,38 +122,61 @@
 								update="grid0, @form">
 							</p:commandButton>
 						</h:panelGrid>
-						<p:dataGrid var="food" layout="grid" id="grid0"
-							value="#{mainMBean.carregarUnidades('r1')}" columns="3"
-							style="padding:0px;height: 100px;background-color:none;background:none"
-							paginator="true" rows="2" paginatorPosition="top">
-							<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
-								<p:panel style="padding:0px;margin:0px">
-									<i class="fa fa-circle"
-										style="color:#{food.alimento.compositeColor};float:right;margin-right:-8px" title="Atenção"></i>
-									<p:outputLabel value="#{food.alimento.nome}"
-										style=";padding:1px;border-radius:4px" />
-									<p:commandButton icon="fa fa-times"
-										oncomplete="#{mainMBean.deletar()}"
-										style=" width:0px; float:right;height:0px;margin-right:-2px"
-										update="f,grid0">
-										<f:setPropertyActionListener target="#{mainMBean.unidade}"
-											value="#{food}" />
-									</p:commandButton>
-									<br></br>
-									<p:outputLabel value="#{food.quantidade}g" />
-									<br></br>
-									<p:outputLabel value="#{food.cal}cal" />
-								</p:panel>
-							</h:panelGrid>
-						</p:dataGrid>
+						<h:panelGroup>
+							<p:dataGrid var="food" layout="grid" id="grid0"
+								value="#{mainMBean.carregarUnidades('r1')}" columns="3"
+								style="padding:0px;height: 100px;background-color:none;background:none"
+								paginator="true" rows="2" paginatorPosition="top">
+								<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
+									<p:panel style="padding:0px;margin:0px">
+										<i class="fa fa-circle"
+											style="color:#{food.alimento.compositeColor};float:right;margin-right:-8px" title="Atenção"></i>
+										<p:outputLabel value="#{food.alimento.nome}"
+											style=";padding:1px;border-radius:4px" />
+										<p:commandButton icon="fa fa-times"
+											onclick="#{mainMBean.deletar()}"
+											style=" width:0px; float:right;height:0px;margin-right:-2px"
+											update="f">
+											<f:setPropertyActionListener target="#{mainMBean.unidade}"
+												value="#{food}" />
+										</p:commandButton>
+										<br></br>
+										<p:outputLabel value="#{food.quantidade}g" />
+										<br></br>
+										<p:outputLabel value="#{food.cal}cal" />
+									</p:panel>
+								</h:panelGrid>
+							</p:dataGrid>
+						</h:panelGroup>
 					</div>
-					<div id="d01" class="block">
-						<div class="div-header">
-							<p:outputLabel value="Lanche da manhã"
-								style="font-size:30px;color:white"></p:outputLabel>
-						</div>
-					</div>
-					<div id="d01" class="block">
+
+					<ct:refeicao headerName="Lanche da manhã"
+						carregarLista="#{mainMBean.carregarUnidades('r2')}"
+						adicionar="#{mainMBean.adicionarLancheManha}" var="food"
+						colorDefiner="#{mainMBean.r2.compositeColor}">
+						<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
+							<p:panel style="padding:0px;margin:0px">
+								<i class="fa fa-circle"
+									style="color:#{food.alimento.compositeColor};float:right;margin-right:-8px" title="Atenção"></i>
+								<p:outputLabel value="#{food.alimento.nome}"
+									style=";padding:1px;border-radius:4px" />
+								<p:commandButton icon="fa fa-times"
+									onclick="#{mainMBean.deletar()}"
+									style=" width:0px; float:right;height:0px;margin-right:-2px"
+									update="f">
+									<f:setPropertyActionListener target="#{mainMBean.unidade}"
+										value="#{food}" />
+								</p:commandButton>
+								<br></br>
+								<p:outputLabel value="#{food.quantidade}g" />
+								<br></br>
+								<p:outputLabel value="#{food.cal}cal" />
+							</p:panel>
+						</h:panelGrid>
+					</ct:refeicao>
+
+					<div id="
+						d01" class="block">
 						<div class="div-header">
 							<p:outputLabel value="Almoço" style="font-size:30px;color:white"></p:outputLabel>
 						</div>

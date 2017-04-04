@@ -4,9 +4,69 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/templates/template1.xhtml"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ct="http://java.sun.com/jsf/composite/caltec"
 	xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:define name="content">
-		<h1>Configurations</h1>
+		<h:form id="f">
+			<div
+				style="padding: 0px; width: 100%; overflow: hidden; background-color: lightgrey; height: 1000px; overflow: hidden;">
+				<div id="d01">
+					<div class="div-header">
+						<p:outputLabel value="Alimentos cadastrados"
+							style="font-size:30px;color:black"></p:outputLabel>
+
+					</div>
+
+					<h:panelGrid columns="3"
+						style="background-color:white; margin-left: 2px">
+						<p:inputText id="simple0" placeholder="Alimento"
+							value="#{alimentoMBean.statement}" style="margin-left:6px"
+							size="20" />
+						<p:commandButton action="#{alimentoMBean.pesquisar}"
+							value="Pesquisar" icon="fa fa-plus"
+							style="font-size:14.2px;background-color:green;color:black"
+							update="f, grid0" />
+						<p:commandButton onclick="PF('dlg2').show();" value="Adicionar"
+							icon="fa fa-plus"
+							style="font-size:14.2px;background-color:green;color:black"
+							update="grid0, @form">
+						</p:commandButton>
+					</h:panelGrid>
+					<h:panelGroup>
+						<p:dataTable var="food" layout="grid" id="grid0"
+							value="#{alimentoMBean.lista}"
+							style="padding:0px;height: 100px;background-color:none;background:none;width:100%"
+							paginator="true" rows="10" paginatorPosition="top">
+							<p:column headerText="Nome" sortBy="#{food.nome}">
+								<h:outputText value="#{food.nome}" />
+							</p:column>
+
+							<p:column headerText="Calorias" sortBy="#{food.calorias}">
+								<h:outputText value="#{food.calorias}cal" />
+							</p:column>
+
+							<p:column headerText="Referência" sortBy="#{food.gramas}">
+								<h:outputText value="#{food.gramas}g" />
+							</p:column>
+
+							<p:column headerText="Cuidado" sortBy="#{food.color}">
+								<i class="fa fa-exclamation-circle"
+									style="color:#{food.compositeColor}"></i>
+							</p:column>
+							<p:column headerText="Editar">
+								<p:commandButton onclick="PF('dlg2').show();" value="Editar"
+									icon="fa fa-plus" update="f2"
+									style="font-size:14.2px;background-color:green;color:black">
+									<f:setPropertyActionListener value="#{food}"
+										target="#{alimentoMBean.alimento}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</h:panelGroup>
+				</div>
+			</div>
+		</h:form>
+		<ui:include src="alimentoDialog.xhtml" />
 	</ui:define>
 </ui:composition>

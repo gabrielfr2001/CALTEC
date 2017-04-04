@@ -47,6 +47,10 @@ public class TOAlimento implements Serializable, BaseInterface {
 		this.color = color;
 	}
 
+	public void setColor(double d) {
+		this.color = Double.toString(d);
+	}
+
 	public double getGramas() {
 		return gramas;
 	}

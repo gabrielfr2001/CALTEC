@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<p:dialog header="Adicionar alimento" widgetVar="dlg2" modal="true"
+		height="180">
+		<h:form id="f2">
+			<p:inputText value="#{alimentoMBean.alimento.nome}"
+				placeholder="Nome" required="true"
+				requiredMessage="Precisa de um nome" />
+			<br></br>
+			<p:inputText value="#{alimentoMBean.alimento.calorias}"
+				placeholder="Calorias (cal)" required="true"
+				requiredMessage="Precisa de um valor calórico" />
+			<br></br>
+			<p:inputText value="#{alimentoMBean.alimento.gramas}"
+				placeholder="Referência (g)" required="true"
+				requiredMessage="Precisa de uma referência" />
+			<br></br>
+			<p:inputNumber value="#{alimentoMBean.alimento.color}"
+				placeholder="0-100 saudável -¹" minValue="0" required="true"
+				maxValue="100" requiredMessage="Precisa de uma classificação" />
+			<br></br>
+			<p:commandButton value="Cadastrar"
+				action="#{alimentoMBean.adicionar()}"
+				oncomplete="PF('dlg2').hide();" update="f"></p:commandButton>
+		</h:form>
+	</p:dialog>
+
+</ui:composition>

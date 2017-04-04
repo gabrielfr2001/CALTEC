@@ -18,8 +18,31 @@ public class ManterAlimentoSBean extends Conn implements IManterAlimentoSBean {
 		em.merge(u.toAlimento());
 	}
 
+	public void atualizar(TOAlimento a) {
+		Alimento e = a.toAlimento();
+		em.find(Alimento.class, e.getId());
+		e.setCalorias(a.getCalorias());
+		e.setColor(a.getColor());
+		e.setGramas(a.getGramas());
+		e.setNome(a.getNome());
+		em.merge(a);
+	}
+
 	public List<TOAlimento> listar(String query) {
-		return null;
+		Query queryy = em.createQuery(query);
+
+		@SuppressWarnings("unchecked")
+		List<Object> obj = queryy.getResultList();
+		List<TOAlimento> un = new ArrayList<TOAlimento>();
+
+		for (Object o : obj) {
+			un.add(new TOAlimento().toTOAlimento((Alimento) o));
+		}
+
+		if (un.size() > 0)
+			return un;
+		else
+			return null;
 	}
 
 	public TOAlimento carregar(String id) {

@@ -73,6 +73,26 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 			if (r1 == null) {
 				r1 = new TORefeicao();
 			}
+			r2 = lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_DA_MANHA, ssssBean, date);
+			if (r2 == null) {
+				r2 = new TORefeicao();
+			}
+			r3 = lmbvw.carregarRefeicao(TiposRefeicoes.ALMOCO, ssssBean, date);
+			if (r3 == null) {
+				r3 = new TORefeicao();
+			}
+			r4 = lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_DA_TARDE, ssssBean, date);
+			if (r4 == null) {
+				r4 = new TORefeicao();
+			}
+			r5 = lmbvw.carregarRefeicao(TiposRefeicoes.JANTAR, ssssBean, date);
+			if (r5 == null) {
+				r5 = new TORefeicao();
+			}
+			r6 = lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_MADRUGADA, ssssBean, date);
+			if (r6 == null) {
+				r6 = new TORefeicao();
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -80,8 +100,12 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 	}
 
 	public void updateDate() {
-		// r1 = lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean,
-		// data);
+		r1 = lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean, data);
+		r2 = lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_DA_MANHA, ssssBean, data);
+		r3 = lmbvw.carregarRefeicao(TiposRefeicoes.ALMOCO, ssssBean, data);
+		r4 = lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_DA_TARDE, ssssBean, data);
+		r5 = lmbvw.carregarRefeicao(TiposRefeicoes.JANTAR, ssssBean, data);
+		r6 = lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_MADRUGADA, ssssBean, data);
 	}
 
 	public void deletar() {
@@ -89,35 +113,43 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 		unidade = new TOUnidade();
 	}
 
-	public void cadastrarCafeDaManha() {
-
-	}
-
-	public void cadastrarLancheDaManha() {
-
-	}
-
 	public List<TOUnidade> carregarUnidades(String str) {
-		if (r1 == null) {
-			r1 = new TORefeicao();
+		switch (str) {
+		case "r1":
+			r1 = carregarUnidades(r1, TiposRefeicoes.CAFE_DA_MANHA);
+			break;
+		case "r2":
+			break;
 		}
-		r1.setData(data);
+
+		return lmbvw.carregarUnidades(lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean, data).getId(),
+				sssBean);
+	}
+
+	private TORefeicao carregarUnidades(TORefeicao r12, TiposRefeicoes enume) {
+		if (r12 == null) {
+			r12 = new TORefeicao();
+		}
+		r12.setData(data);
 		Long l = Long.parseLong(getUsuarioSessao());
-		r1.setUserid(l);
-		r1.setTipo(TiposRefeicoes.CAFE_DA_MANHA);
-		if (lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean, data) == null) {
+		r12.setUserid(l);
+		r12.setTipo(enume);
+		if (lmbvw.carregarRefeicao(enume, ssssBean, data) == null) {
 			try {
-				lmbvw.salvar(r1, ssssBean);
+				lmbvw.salvar(r12, ssssBean);
 				unidade = new TOUnidade();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		return lmbvw.carregarUnidades(lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean, data).getId(),
-				sssBean);
+		return r12;
 	}
 
-	public void adicionarCafe() {
+	public void adicionarLancheManha() {
+		r2 = adicionarRefeicao(r2);
+	}
+
+	public TORefeicao adicionarRefeicao(TORefeicao tor) {
 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		try {
@@ -126,59 +158,43 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 			e1.printStackTrace();
 		}
 
-		r1 = lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean, data);
+		tor = lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean, data);
 
-		if (r1 == null) {
-			r1 = new TORefeicao();
+		if (tor == null) {
+			tor = new TORefeicao();
 		}
-		r1.setData(data);
+		tor.setData(data);
 		unidade.setCal(
 				unidade.getQuantidade() * unidade.getAlimento().getCalorias() / unidade.getAlimento().getGramas());
-		r1.setTotalCal(r1.getTotalCal() + unidade.getCal());
+		tor.setTotalCal(tor.getTotalCal() + unidade.getCal());
 		Long l = Long.parseLong(getUsuarioSessao());
-		r1.setUserid(l);
-		r1.setCorTotal(Integer
-				.toString(Integer.parseInt(r1.getCorTotal()) + Integer.parseInt(unidade.getAlimento().getColor())));
-		r1.setTotalUnit(r1.getTotalUnit() + 1);
-		r1.setTipo(TiposRefeicoes.CAFE_DA_MANHA);
+		tor.setUserid(l);
+		tor.setCorTotal(Integer
+				.toString(Integer.parseInt(tor.getCorTotal()) + Integer.parseInt(unidade.getAlimento().getColor())));
+		tor.setTotalUnit(tor.getTotalUnit() + 1);
+		tor.setTipo(TiposRefeicoes.CAFE_DA_MANHA);
 		try {
-			lmbvw.salvar(r1, ssssBean);
+			lmbvw.salvar(tor, ssssBean);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		unidade.setAlimento(lmbvw.carregarComida(unidade.getAlimento().getNome(), ssBean));
-		unidade.setRefeicaoId(r1.getId());
+		unidade.setRefeicaoId(tor.getId());
 		try {
 			lmbvw.salvar(unidade, sssBean);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		unidade = new TOUnidade();
+		return tor;
+	}
 
+	public void adicionarCafe() {
+		r1 = adicionarRefeicao(r1);
 	}
 
 	public String redirectGraphs() {
 		return "/pages/user/graphs?faces-redirect=true";
-	}
-
-	public void excluirCafe() {
-
-	}
-
-	public void cadastrarAlmoco() {
-
-	}
-
-	public void cadastrarLancheDaTarde() {
-
-	}
-
-	public void cadastrarJanta() {
-
-	}
-
-	public void cadastrarLancheDaMadrugada() {
-
 	}
 
 	public List<TOAlimento> complete(String str) {

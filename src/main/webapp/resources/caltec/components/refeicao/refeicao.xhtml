@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<composite:interface>
+	<composite:attribute name="headerName" required="true" />
+	<composite:attribute name="adicionar" required="true" />
+	<composite:attribute name="carregarLista" required="true" />
+	<composite:attribute name="colorDefiner" required="true" />
+	<composite:attribute name="var" required="true" />
+</composite:interface>
+<composite:implementation>
+	<style>
+.block {
+	background-color: #76a1e8;
+	border-radius: 20px;
+	width: 30.7%;
+	height: 310px;
+	float: left;
+	margin: 3px;
+	overflow: hidden
+}
+
+.sub-header {
+	background-color: #76a1e8;
+	width: 100%;
+	height: 61px;
+	margin-top: 0px;
+	margin-left: -40px;
+	margin-bottom: 40px;
+	margin-left: -40px;
+	text-align: center;
+	vertical-align: middle;
+	overflow: hidden
+}
+
+.sub-div {
+	display: table-cell;
+	float: none;
+	text-align: center;
+	vertical-align: middle;
+	margin: 100px;
+	overflow: hidden
+}
+
+.div-header {
+	background-color: #5c87ce;
+	padding: 10px;
+	text-align: center;
+	border-radius: 20px 20px 0px 0px;
+	overflow: hidden
+}
+
+.sub-sub-header {
+	background-color: white;
+	width: 100%;
+	height: 30px;
+	margin-top: -40px;
+	margin-left: -40px;
+	overflow: hidden;
+}
+</style>
+	<div id="d01" class="block">
+		<div class="div-header">
+			<p:outputLabel value="#{cc.attrs.headerName}"
+				style="font-size:30px;color:white"></p:outputLabel>
+			<i class="fa fa-circle" style="color:#{cc.attrs.colorDefiner};float:right;margin-right:8px;margin-top:10px;text-shadow: 1px 1px 2px white;"
+				title="Atenção"></i>
+		</div>
+		<h:panelGrid columns="3"
+			style="background-color:white; margin-left: 2px">
+			<p:autoComplete id="simple0" placeholder="Alimento"
+				value="#{mainMBean.unidade.alimento}"
+				completeMethod="#{mainMBean.complete}" var="comida"
+				itemLabel="#{comida.nome}" itemValue="#{comida}"
+				converter="gConverter" style="margin-left:6px" forceSelection="true"
+				size="20">
+
+				<f:facet name="itemtip">
+					<h:panelGrid columns="2" cellpadding="5">
+						<f:facet name="header">
+							<h:outputText value="#{comida.nome}" />
+						</f:facet>
+						<h:outputText value="Calorias:" />
+						<h:outputText value="#{comida.calorias}cal" />
+						<h:outputText value="Referência" />
+						<h:outputText value="#{comida.gramas}g" />
+					</h:panelGrid>
+				</f:facet>
+			</p:autoComplete>
+			<p:inputNumber thousandSeparator=""
+				value="#{mainMBean.unidade.quantidade}" size="4" min="1"
+				placeholder="Qtd-g" maxValue="9999" />
+			<p:commandButton action="#{cc.attrs.adicionar}" value="Inserir"
+				icon="fa fa-plus"
+				style="font-size:14.2px;background-color:green;color:black"
+				update="grid0, @form">
+			</p:commandButton>
+		</h:panelGrid>
+		<h:panelGroup>
+			<p:dataGrid var="cc.attrs.var" layout="grid" id="grid0"
+				value="#{cc.attrs.carregarLista}" columns="3"
+				style="padding:0px;height: 100px;background-color:none;background:none"
+				paginator="true" rows="2" paginatorPosition="top">
+				<composite:insertChildren />
+			</p:dataGrid>
+		</h:panelGroup>
+	</div>
+</composite:implementation>
+</html>
