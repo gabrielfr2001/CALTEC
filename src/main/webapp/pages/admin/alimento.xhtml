@@ -26,11 +26,11 @@
 						<p:commandButton action="#{alimentoMBean.pesquisar}"
 							value="Pesquisar" icon="fa fa-plus"
 							style="font-size:14.2px;background-color:green;color:black"
-							update="f, grid0" />
+							update="f" />
 						<p:commandButton onclick="PF('dlg2').show();" value="Adicionar"
 							icon="fa fa-plus"
 							style="font-size:14.2px;background-color:green;color:black"
-							update="grid0, @form">
+							update="@form">
 						</p:commandButton>
 					</h:panelGrid>
 					<h:panelGroup>

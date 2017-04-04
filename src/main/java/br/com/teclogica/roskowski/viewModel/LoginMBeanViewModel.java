@@ -2,6 +2,7 @@ package br.com.teclogica.roskowski.viewModel;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
@@ -26,14 +27,22 @@ public class LoginMBeanViewModel {
 	public String salvar(TOUsuario u, UploadedFile uf, IManterUsuarioSBean imusb) throws IOException {
 
 		if (imusb.carregarUsuario(u.getUsuario()) == null) {
-			BufferedImage img = ImageIO.read(uf.getInputstream());
+			InputStream is = uf.getInputstream();
+			BufferedImage img = ImageIO.read(is);
+			is.close();
 			u.setFoto(img);
-			uf.getInputstream().close();
 			u.setStationaryKey(0);
 			u.setImageLink(u.getNome() + DIVIDER + u.getStationaryKey());
 			Filer.saveImage(img, u.getImageLink());
 			u.setTipo("user");
 			imusb.salvar(u);
+			u = imusb.carregarUsuario(u.getUsuario());
+
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+			session.setAttribute("user", u.getId());
+			session.setAttribute("user_tipo", u.getTipo());
+
 			return "/pages/user/main?faces-redirect=true";
 		} else {
 			return "/pages/repeated?faces-redirect=true";

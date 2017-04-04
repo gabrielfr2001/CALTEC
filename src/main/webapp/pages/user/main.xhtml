@@ -80,80 +80,16 @@
 							<p:commandButton action="#{mainMBean.redirectGraphs}"
 								value="Gráficos" icon="fa fa-bar-chart"
 								style="font-size:14.2px;background-color:green;color:black"
-								update="grid0, @form" />
+								update="@form" />
 						</p:panel>
 					</div>
 				</div>
 				<div>
-					<div id="d01" class="block">
-						<div class="div-header">
-							<p:outputLabel value="Café da manhã"
-								style="font-size:30px;color:white"></p:outputLabel>
-							<i class="fa fa-circle"
-								style="color:#{mainMBean.r1.compositeColor};float:right;margin-right:8px;margin-top:10px;text-shadow: 1px 1px 2px white;" title="Atenção"></i>
-						</div>
-						<h:panelGrid columns="3"
-							style="background-color:white; margin-left: 2px">
-							<p:autoComplete id="simple0" placeholder="Alimento"
-								value="#{mainMBean.unidade.alimento}"
-								completeMethod="#{mainMBean.complete}" var="comida"
-								itemLabel="#{comida.nome}" itemValue="#{comida}"
-								converter="gConverter" style="margin-left:6px"
-								forceSelection="true" size="20">
 
-								<f:facet name="itemtip">
-									<h:panelGrid columns="2" cellpadding="5">
-										<f:facet name="header">
-											<h:outputText value="#{comida.nome}" />
-										</f:facet>
-										<h:outputText value="Calorias:" />
-										<h:outputText value="#{comida.calorias}cal" />
-										<h:outputText value="Referência" />
-										<h:outputText value="#{comida.gramas}g" />
-									</h:panelGrid>
-								</f:facet>
-							</p:autoComplete>
-							<p:inputNumber thousandSeparator=""
-								value="#{mainMBean.unidade.quantidade}" size="4" min="1"
-								placeholder="Qtd-g" maxValue="9999" />
-							<p:commandButton action="#{mainMBean.adicionarCafe}"
-								value="Inserir" icon="fa fa-plus"
-								style="font-size:14.2px;background-color:green;color:black"
-								update="grid0, @form">
-							</p:commandButton>
-						</h:panelGrid>
-						<h:panelGroup>
-							<p:dataGrid var="food" layout="grid" id="grid0"
-								value="#{mainMBean.carregarUnidades('r1')}" columns="3"
-								style="padding:0px;height: 100px;background-color:none;background:none"
-								paginator="true" rows="2" paginatorPosition="top">
-								<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
-									<p:panel style="padding:0px;margin:0px">
-										<i class="fa fa-circle"
-											style="color:#{food.alimento.compositeColor};float:right;margin-right:-8px" title="Atenção"></i>
-										<p:outputLabel value="#{food.alimento.nome}"
-											style=";padding:1px;border-radius:4px" />
-										<p:commandButton icon="fa fa-times"
-											onclick="#{mainMBean.deletar()}"
-											style=" width:0px; float:right;height:0px;margin-right:-2px"
-											update="f">
-											<f:setPropertyActionListener target="#{mainMBean.unidade}"
-												value="#{food}" />
-										</p:commandButton>
-										<br></br>
-										<p:outputLabel value="#{food.quantidade}g" />
-										<br></br>
-										<p:outputLabel value="#{food.cal}cal" />
-									</p:panel>
-								</h:panelGrid>
-							</p:dataGrid>
-						</h:panelGroup>
-					</div>
-
-					<ct:refeicao headerName="Lanche da manhã"
-						carregarLista="#{mainMBean.carregarUnidades('r2')}"
-						adicionar="#{mainMBean.adicionarLancheManha}" var="food"
-						colorDefiner="#{mainMBean.r2.compositeColor}">
+					<ct:refeicao headerName="Café da manhã"
+						carregarLista="#{mainMBean.carregarUnidades('r1')}" ide="grid0"
+						adicionar="#{mainMBean.adicionarCafe()}" var="food"
+						colorDefiner="#{mainMBean.r1.compositeColor}">
 						<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
 							<p:panel style="padding:0px;margin:0px">
 								<i class="fa fa-circle"
@@ -161,7 +97,7 @@
 								<p:outputLabel value="#{food.alimento.nome}"
 									style=";padding:1px;border-radius:4px" />
 								<p:commandButton icon="fa fa-times"
-									onclick="#{mainMBean.deletar()}"
+									action="#{mainMBean.deletar()}"
 									style=" width:0px; float:right;height:0px;margin-right:-2px"
 									update="f">
 									<f:setPropertyActionListener target="#{mainMBean.unidade}"
@@ -175,28 +111,127 @@
 						</h:panelGrid>
 					</ct:refeicao>
 
-					<div id="
-						d01" class="block">
-						<div class="div-header">
-							<p:outputLabel value="Almoço" style="font-size:30px;color:white"></p:outputLabel>
-						</div>
-					</div>
-					<div id="d01" class="block">
-						<div class="div-header">
-							<p:outputLabel value="Lanche da tarde"
-								style="font-size:30px;color:white"></p:outputLabel>
-						</div>
-					</div>
-					<div id="d01" class="block">
-						<div class="div-header">
-							<p:outputLabel value="Janta" style="font-size:30px;color:white"></p:outputLabel>
-						</div>
-					</div>
-					<div id="d01" class="block">
-						<div class="div-header">
-							<p:outputLabel value="Ceia" style="font-size:30px;color:white"></p:outputLabel>
-						</div>
-					</div>
+					<ct:refeicao headerName="Lanche da manhã"
+						carregarLista="#{mainMBean.carregarUnidades('r2')}" ide="grid1"
+						adicionar="#{mainMBean.adicionarLancheManha()}" var="food"
+						colorDefiner="#{mainMBean.r2.compositeColor}">
+						<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
+							<p:panel style="padding:0px;margin:0px">
+								<i class="fa fa-circle"
+									style="color:#{food.alimento.compositeColor};float:right;margin-right:-8px" title="Atenção"></i>
+								<p:outputLabel value="#{food.alimento.nome}"
+									style=";padding:1px;border-radius:4px" />
+								<p:commandButton icon="fa fa-times"
+									action="#{mainMBean.deletar()}"
+									style=" width:0px; float:right;height:0px;margin-right:-2px"
+									update="f">
+									<f:setPropertyActionListener target="#{mainMBean.unidade}"
+										value="#{food}" />
+								</p:commandButton>
+								<br></br>
+								<p:outputLabel value="#{food.quantidade}g" />
+								<br></br>
+								<p:outputLabel value="#{food.cal}cal" />
+							</p:panel>
+						</h:panelGrid>
+					</ct:refeicao>
+
+					<ct:refeicao headerName="Almoço"
+						carregarLista="#{mainMBean.carregarUnidades('r3')}" ide="grid2"
+						adicionar="#{mainMBean.adicionarAlmoco()}" var="food"
+						colorDefiner="#{mainMBean.r3.compositeColor}">
+						<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
+							<p:panel style="padding:0px;margin:0px">
+								<i class="fa fa-circle"
+									style="color:#{food.alimento.compositeColor};float:right;margin-right:-8px" title="Atenção"></i>
+								<p:outputLabel value="#{food.alimento.nome}"
+									style=";padding:1px;border-radius:4px" />
+								<p:commandButton icon="fa fa-times"
+									action="#{mainMBean.deletar()}"
+									style=" width:0px; float:right;height:0px;margin-right:-2px"
+									update="f">
+									<f:setPropertyActionListener target="#{mainMBean.unidade}"
+										value="#{food}" />
+								</p:commandButton>
+								<br></br>
+								<p:outputLabel value="#{food.quantidade}g" />
+								<br></br>
+								<p:outputLabel value="#{food.cal}cal" />
+							</p:panel>
+						</h:panelGrid>
+					</ct:refeicao>
+					<ct:refeicao headerName="Lanche da tarde"
+						carregarLista="#{mainMBean.carregarUnidades('r4')}" ide="grid3"
+						adicionar="#{mainMBean.adicionarLancheTarde()}" var="food"
+						colorDefiner="#{mainMBean.r4.compositeColor}">
+						<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
+							<p:panel style="padding:0px;margin:0px">
+								<i class="fa fa-circle"
+									style="color:#{food.alimento.compositeColor};float:right;margin-right:-8px" title="Atenção"></i>
+								<p:outputLabel value="#{food.alimento.nome}"
+									style=";padding:1px;border-radius:4px" />
+								<p:commandButton icon="fa fa-times"
+									action="#{mainMBean.deletar()}"
+									style=" width:0px; float:right;height:0px;margin-right:-2px"
+									update="f">
+									<f:setPropertyActionListener target="#{mainMBean.unidade}"
+										value="#{food}" />
+								</p:commandButton>
+								<br></br>
+								<p:outputLabel value="#{food.quantidade}g" />
+								<br></br>
+								<p:outputLabel value="#{food.cal}cal" />
+							</p:panel>
+						</h:panelGrid>
+					</ct:refeicao>
+					<ct:refeicao headerName="Jantar"
+						carregarLista="#{mainMBean.carregarUnidades('r5')}" ide="grid4"
+						adicionar="#{mainMBean.adicionarJantar()}" var="food"
+						colorDefiner="#{mainMBean.r5.compositeColor}">
+						<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
+							<p:panel style="padding:0px;margin:0px">
+								<i class="fa fa-circle"
+									style="color:#{food.alimento.compositeColor};float:right;margin-right:-8px" title="Atenção"></i>
+								<p:outputLabel value="#{food.alimento.nome}"
+									style=";padding:1px;border-radius:4px" />
+								<p:commandButton icon="fa fa-times"
+									action="#{mainMBean.deletar()}"
+									style=" width:0px; float:right;height:0px;margin-right:-2px"
+									update="f">
+									<f:setPropertyActionListener target="#{mainMBean.unidade}"
+										value="#{food}" />
+								</p:commandButton>
+								<br></br>
+								<p:outputLabel value="#{food.quantidade}g" />
+								<br></br>
+								<p:outputLabel value="#{food.cal}cal" />
+							</p:panel>
+						</h:panelGrid>
+					</ct:refeicao>
+					<ct:refeicao headerName="Ceia"
+						carregarLista="#{mainMBean.carregarUnidades('r6')}" ide="grid5"
+						adicionar="#{mainMBean.adicionarLancheMadrugada()}" var="food"
+						colorDefiner="#{mainMBean.r6.compositeColor}">
+						<h:panelGrid style="padding:3px;width:100%;margin:-1px;">
+							<p:panel style="padding:0px;margin:0px">
+								<i class="fa fa-circle"
+									style="color:#{food.alimento.compositeColor};float:right;margin-right:-8px" title="Atenção"></i>
+								<p:outputLabel value="#{food.alimento.nome}"
+									style=";padding:1px;border-radius:4px" />
+								<p:commandButton icon="fa fa-times"
+									action="#{mainMBean.deletar()}"
+									style=" width:0px; float:right;height:0px;margin-right:-2px"
+									update="f">
+									<f:setPropertyActionListener target="#{mainMBean.unidade}"
+										value="#{food}" />
+								</p:commandButton>
+								<br></br>
+								<p:outputLabel value="#{food.quantidade}g" />
+								<br></br>
+								<p:outputLabel value="#{food.cal}cal" />
+							</p:panel>
+						</h:panelGrid>
+					</ct:refeicao>
 				</div>
 			</div>
 		</h:form>

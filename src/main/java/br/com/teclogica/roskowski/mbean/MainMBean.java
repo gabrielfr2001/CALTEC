@@ -64,6 +64,7 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 	public MainMBean() {
 		lmbvw = new MainMBeanViewModel();
 		unidade = new TOUnidade();
+		unidade.setAlimento(new TOAlimento());
 
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
@@ -114,16 +115,39 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 	}
 
 	public List<TOUnidade> carregarUnidades(String str) {
-		switch (str) {
-		case "r1":
-			r1 = carregarUnidades(r1, TiposRefeicoes.CAFE_DA_MANHA);
-			break;
-		case "r2":
-			break;
-		}
+		try {
+			switch (str) {
+			case "r1":
+				r1 = carregarUnidades(r1, TiposRefeicoes.CAFE_DA_MANHA);
+				return lmbvw.carregarUnidades(
+						lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean, data).getId(), sssBean);
+			case "r2":
+				r2 = carregarUnidades(r2, TiposRefeicoes.LANCHE_DA_MANHA);
+				return lmbvw.carregarUnidades(
+						lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_DA_MANHA, ssssBean, data).getId(), sssBean);
+			case "r3":
+				r3 = carregarUnidades(r2, TiposRefeicoes.ALMOCO);
+				return lmbvw.carregarUnidades(lmbvw.carregarRefeicao(TiposRefeicoes.ALMOCO, ssssBean, data).getId(),
+						sssBean);
+			case "r4":
+				r4 = carregarUnidades(r2, TiposRefeicoes.LANCHE_DA_TARDE);
+				return lmbvw.carregarUnidades(
+						lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_DA_TARDE, ssssBean, data).getId(), sssBean);
+			case "r5":
+				r5 = carregarUnidades(r2, TiposRefeicoes.JANTAR);
+				return lmbvw.carregarUnidades(lmbvw.carregarRefeicao(TiposRefeicoes.JANTAR, ssssBean, data).getId(),
+						sssBean);
+			case "r6":
+				r6 = carregarUnidades(r2, TiposRefeicoes.LANCHE_MADRUGADA);
+				return lmbvw.carregarUnidades(
+						lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_MADRUGADA, ssssBean, data).getId(), sssBean);
+			default:
+				return null;
+			}
 
-		return lmbvw.carregarUnidades(lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean, data).getId(),
-				sssBean);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	private TORefeicao carregarUnidades(TORefeicao r12, TiposRefeicoes enume) {
@@ -137,16 +161,36 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 		if (lmbvw.carregarRefeicao(enume, ssssBean, data) == null) {
 			try {
 				lmbvw.salvar(r12, ssssBean);
-				unidade = new TOUnidade();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else {
 		}
 		return r12;
 	}
 
+	public void adicionarCafe() {
+		r1 = adicionarRefeicao(r1);
+	}
+
 	public void adicionarLancheManha() {
 		r2 = adicionarRefeicao(r2);
+	}
+
+	public void adicionarAlmoco() {
+		r3 = adicionarRefeicao(r3);
+	}
+
+	public void adicionarLancheTarde() {
+		r4 = adicionarRefeicao(r4);
+	}
+
+	public void adicionarJantar() {
+		r5 = adicionarRefeicao(r5);
+	}
+
+	public void adicionarLancheMadrugada() {
+		r6 = adicionarRefeicao(r6);
 	}
 
 	public TORefeicao adicionarRefeicao(TORefeicao tor) {
@@ -164,8 +208,9 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 			tor = new TORefeicao();
 		}
 		tor.setData(data);
-		unidade.setCal(
-				unidade.getQuantidade() * unidade.getAlimento().getCalorias() / unidade.getAlimento().getGramas());
+		unidade.setCal((double) Math.round(
+				unidade.getQuantidade() * unidade.getAlimento().getCalorias() / unidade.getAlimento().getGramas() * 100)
+				/ 100);
 		tor.setTotalCal(tor.getTotalCal() + unidade.getCal());
 		Long l = Long.parseLong(getUsuarioSessao());
 		tor.setUserid(l);
@@ -187,10 +232,6 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 		}
 		unidade = new TOUnidade();
 		return tor;
-	}
-
-	public void adicionarCafe() {
-		r1 = adicionarRefeicao(r1);
 	}
 
 	public String redirectGraphs() {

@@ -39,7 +39,7 @@
 				style="text-decoration: none;color:white; margin-top:7px; margin-left: 30px ">
 			</p:link>
 			<p:commandButton action="#{loginMBean.redirectAdmin}"
-				value="Alimentos" disabled="#{loginMBean.usuarioTipo}"
+				value="Alimentos" rendered="#{not loginMBean.usuarioTipo}"
 				style="font-size:14.2px;background-color:green;color:black;margin-left:30px" />
 		</h:form>
 	</div>

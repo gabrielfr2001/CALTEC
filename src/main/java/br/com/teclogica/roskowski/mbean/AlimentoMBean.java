@@ -46,6 +46,9 @@ public class AlimentoMBean extends AbstractCommonMBean implements Serializable {
 
 	public void adicionar() {
 		lmbvw.adicionar(alimento, ssBean);
+		if (statement == null) {
+			statement = "0";
+		}
 		alimento = new TOAlimento();
 	}
 

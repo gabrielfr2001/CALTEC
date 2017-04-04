@@ -25,7 +25,7 @@ public class ManterAlimentoSBean extends Conn implements IManterAlimentoSBean {
 		e.setColor(a.getColor());
 		e.setGramas(a.getGramas());
 		e.setNome(a.getNome());
-		em.merge(a);
+		em.merge(e);
 	}
 
 	public List<TOAlimento> listar(String query) {
