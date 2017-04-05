@@ -25,7 +25,7 @@ public class LoginMBean extends AbstractCommonMBean implements Serializable {
 
 	private static final long serialVersionUID = -3481372012872928594L;
 	public static final String MBEAN = "loginMBean";
-	public static final String BUNDLE = MAIN_BUNDLE + "loginPage";
+	public static final String BUNDLE = MAIN_BUNDLE + "login";
 
 	private TOUsuario usuario;
 	private UploadedFile file;

@@ -69,7 +69,7 @@ public class MainMBeanViewModel {
 	}
 
 	public TORefeicao carregarRefeicao(TiposRefeicoes cafeDaManha, IManterRefeicaoSBean ssssBean, Date data) {
-		return ssssBean.carregarData(getUsuarioSessao(), data, TiposRefeicoes.CAFE_DA_MANHA.getNome());
+		return ssssBean.carregarData(getUsuarioSessao(), data, cafeDaManha.getNome());
 	}
 
 	public void deletar(TORefeicao r1, IManterRefeicaoSBean sssBean) {

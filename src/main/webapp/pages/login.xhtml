@@ -32,63 +32,63 @@
 						<br /> <br />
 						<p:outputLabel
 							style="font-size:15px; font-weight: 6; margin: 20px"
-							value="Aqui a sua idade não é limite" />
+							value="#{loginMBean.getLabel('idade')}" />
 						<br />
 						<p:outputLabel
 							style="font-size:15px; font-weight: 6; margin: 20px"
-							value="A senha precisa ter mais de 6 dígitos e menos de 128" />
+							value="#{loginMBean.getLabel('senha2')}" />
 						<br />
 						<p:outputLabel
 							style="font-size:15px; font-weight: 6; margin: 20px"
-							value="O nome precisa ter mais de 3 dígitos" />
+							value="#{loginMBean.getLabel('nome')}" />
 
 						<div style="padding: 100px; padding-top: 30px">
 
 							<p:panelGrid columns="2" styleClass="semBorda">
 								<p:outputLabel style="font-size:18px; font-weight: 2"
-									value="Nome" />
+									value="#{loginMBean.getLabel('campo_nome')}" />
 								<p:inputText style="margin-left:10px"
 									value="#{loginMBean.usuario.nome}" required="true"
 									requiredMessage="Nome é necessário">
 									<f:validateLength maximum="128" minimum="3" />
 								</p:inputText>
 								<p:outputLabel style="font-size:18px; font-weight: 2"
-									value="Usuário" />
+									value="#{loginMBean.getLabel('campo_usuario')}" />
 								<p:inputText style="margin-left:10px"
 									value="#{loginMBean.usuario.usuario}" maxlength="128"
 									required="true" requiredMessage="Usuário é necessário">
 									<f:validateLength maximum="128" minimum="6" />
 								</p:inputText>
 								<p:outputLabel style="font-size:18px; font-weight: 2"
-									value="Email" />
+									value="#{loginMBean.getLabel('campo_email')}" />
 								<p:inputText style="margin-left:10px"
 									value="#{loginMBean.usuario.email}" maxlength="128"
 									required="true" requiredMessage="Nome é necessário"></p:inputText>
 								<p:outputLabel style="font-size:18px; font-weight: 2"
-									value="Senha" />
+									value="#{loginMBean.getLabel('campo_senha')}" />
 								<p:inputText type="password" style="margin-left:10px"
 									value="#{loginMBean.usuario.senha}" maxlength="128"
 									required="true" requiredMessage="Senha é necessária">
-									<f:validateLength maximum="128"/>
+									<f:validateLength maximum="128" />
 								</p:inputText>
 								<p:outputLabel style="font-size:18px; font-weight: 2"
-									value="Escolher foto" />
+									value="#{loginMBean.getLabel('campo_foto')}" />
 
 								<p:fileUpload styleClass="imagesOnlyMax1MB" skinSimple="true"
 									mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
 									value="#{loginMBean.file}" sizeLimit="102400"
-									label="Escolher imagem"/>
+									label="#{loginMBean.getLabel('escolher')}" />
 
 							</p:panelGrid>
 							<p:outputLabel
 								style="font-size:15px; font-weight: 6; margin: 20px; padding-top:10px"
-								value="Ao clicar no botão abaixo você passa a concordar com os termos e política de dados" />
+								value="#{loginMBean.getLabel('confirmar')}" />
 							<div style="margin: auto; width: 300px; margin-top: 18px">
 
 								<p:commandButton
 									style="background-color: green; 
 									color:black"
-									ajax="false" value="ABRIR UMA CONTA"
+									ajax="false" value="#{loginMBean.getLabel('abrir')}"
 									action="#{loginMBean.cadastrar()}" />
 							</div>
 						</div>

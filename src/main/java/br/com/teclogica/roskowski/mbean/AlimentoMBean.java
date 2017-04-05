@@ -22,7 +22,7 @@ import br.com.teclogica.roskowski.viewModel.AlimentoMBeanViewModel;
 public class AlimentoMBean extends AbstractCommonMBean implements Serializable {
 
 	private static final long serialVersionUID = -907022416096648915L;
-	public static final String MBEAN = "alimentoMBean";
+	public static final String MBEAN = "alimento";
 	public static final String BUNDLE = MAIN_BUNDLE + "alimentoPage";
 
 	@EJB

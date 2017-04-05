@@ -37,7 +37,7 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 
 	private static final long serialVersionUID = -9047022416096648915L;
 	public static final String MBEAN = "mainMBean";
-	public static final String BUNDLE = MAIN_BUNDLE + "mainPage";
+	public static final String BUNDLE = MAIN_BUNDLE + "main";
 
 	private Date data;
 
@@ -126,19 +126,19 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 				return lmbvw.carregarUnidades(
 						lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_DA_MANHA, ssssBean, data).getId(), sssBean);
 			case "r3":
-				r3 = carregarUnidades(r2, TiposRefeicoes.ALMOCO);
+				r3 = carregarUnidades(r3, TiposRefeicoes.ALMOCO);
 				return lmbvw.carregarUnidades(lmbvw.carregarRefeicao(TiposRefeicoes.ALMOCO, ssssBean, data).getId(),
 						sssBean);
 			case "r4":
-				r4 = carregarUnidades(r2, TiposRefeicoes.LANCHE_DA_TARDE);
+				r4 = carregarUnidades(r4, TiposRefeicoes.LANCHE_DA_TARDE);
 				return lmbvw.carregarUnidades(
 						lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_DA_TARDE, ssssBean, data).getId(), sssBean);
 			case "r5":
-				r5 = carregarUnidades(r2, TiposRefeicoes.JANTAR);
+				r5 = carregarUnidades(r5, TiposRefeicoes.JANTAR);
 				return lmbvw.carregarUnidades(lmbvw.carregarRefeicao(TiposRefeicoes.JANTAR, ssssBean, data).getId(),
 						sssBean);
 			case "r6":
-				r6 = carregarUnidades(r2, TiposRefeicoes.LANCHE_MADRUGADA);
+				r6 = carregarUnidades(r6, TiposRefeicoes.LANCHE_MADRUGADA);
 				return lmbvw.carregarUnidades(
 						lmbvw.carregarRefeicao(TiposRefeicoes.LANCHE_MADRUGADA, ssssBean, data).getId(), sssBean);
 			default:
@@ -202,7 +202,7 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 			e1.printStackTrace();
 		}
 
-		tor = lmbvw.carregarRefeicao(TiposRefeicoes.CAFE_DA_MANHA, ssssBean, data);
+		tor = lmbvw.carregarRefeicao(tor.getTipo(), ssssBean, data);
 
 		if (tor == null) {
 			tor = new TORefeicao();
@@ -217,7 +217,7 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 		tor.setCorTotal(Integer
 				.toString(Integer.parseInt(tor.getCorTotal()) + Integer.parseInt(unidade.getAlimento().getColor())));
 		tor.setTotalUnit(tor.getTotalUnit() + 1);
-		tor.setTipo(TiposRefeicoes.CAFE_DA_MANHA);
+		tor.setTipo(tor.getTipo());
 		try {
 			lmbvw.salvar(tor, ssssBean);
 		} catch (IOException e) {
@@ -231,6 +231,7 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 			e.printStackTrace();
 		}
 		unidade = new TOUnidade();
+
 		return tor;
 	}
 

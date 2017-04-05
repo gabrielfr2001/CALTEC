@@ -28,18 +28,18 @@
 				value="CALTEC" />
 			<p:outputLabel
 				style="font-size: 15px; margin-top: 15px;font-style: italic;"
-				value=" - UMA NOVA FORMA DE ESTAR EM FORMA " />
+				value="#{loginMBean.getLabel('slogan')}" />
 
 			<div style="float:right; display:block; margin-right: 50px">
 				<p:outputLabel style="margin-left: 35px; margin-right: 5px"
-					value="Usuário" />
+					value="#{loginMBean.getLabel('usuario')}" />
 				<p:inputText value="#{loginMBean.usuario.usuario}" size="8" />
 
 				<p:outputLabel style="margin-left: 20px; margin-right: 5px"
-					value="Senha" />
+					value="#{loginMBean.getLabel('senha')}" />
 				<p:inputText type="password" value="#{loginMBean.usuario.senha}"
 					size="8" />
-				<p:commandButton style="margin-left:25px" ajax="false" value="Entrar"
+				<p:commandButton style="margin-left:25px" ajax="false" value="#{loginMBean.getLabel('entrar')}"
 					action="#{loginMBean.logar}" />
 			</div>
 		</h:form>

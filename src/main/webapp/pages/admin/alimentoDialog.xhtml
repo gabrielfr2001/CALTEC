@@ -6,26 +6,26 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-	<p:dialog header="Adicionar alimento" widgetVar="dlg2" modal="true"
+	<p:dialog header="#{alimentoMBean.getLabel('adicionar_alimento')}" widgetVar="dlg2" modal="true"
 		height="180">
 		<h:form id="f2">
 			<p:inputText value="#{alimentoMBean.alimento.nome}"
-				placeholder="Nome" required="true"
-				requiredMessage="Precisa de um nome" />
+				placeholder="#{alimentoMBean.getLabel('nome')}" required="true"
+				requiredMessage="#{alimentoMBean.getLabel('precisa_nome')}" />
 			<br></br>
 			<p:inputText value="#{alimentoMBean.alimento.calorias}"
-				placeholder="Calorias (cal)" required="true"
-				requiredMessage="Precisa de um valor calórico" />
+				placeholder="#{alimentoMBean.getLabel('calorias')}" required="true"
+				requiredMessage="#{alimentoMBean.getLabel('precisa_caloria')}" />
 			<br></br>
 			<p:inputText value="#{alimentoMBean.alimento.gramas}"
-				placeholder="Referência (g)" required="true"
-				requiredMessage="Precisa de uma referência" />
+				placeholder="#{alimentoMBean.getLabel('referencia')}" required="true"
+				requiredMessage="#{alimentoMBean.getLabel('precisa_referencia')}" />
 			<br></br>
 			<p:inputNumber value="#{alimentoMBean.alimento.color}"
-				placeholder="0-100 saudável -¹" minValue="0" required="true"
-				maxValue="100" requiredMessage="Precisa de uma classificação" />
+				placeholder="#{alimentoMBean.getLabel('saudavel')}" minValue="0" required="true"
+				maxValue="100" requiredMessage="#{alimentoMBean.getLabel('precisa_classe')}" />
 			<br></br>
-			<p:commandButton value="Cadastrar"
+			<p:commandButton value="#{alimentoMBean.getLabel('atualizar')}"
 				action="#{alimentoMBean.adicionar()}"
 				oncomplete="PF('dlg2').hide();" update="f"></p:commandButton>
 		</h:form>

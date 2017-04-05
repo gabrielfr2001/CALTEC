@@ -28,18 +28,18 @@
 				value="CALTEC" />
 			<p:outputLabel
 				style="font-size: 15px; margin-top: 15px;font-style: italic;"
-				value=" - UMA NOVA FORMA DE ESTAR EM FORMA " />
+				value="#{loginMBean.getLabel('slogan')}" />
 			<a href="/CALTEC-0.0.1-SNAPSHOT/pages/user/main.jsf"> <p:graphicImage
 					style="border-radius: 1000px; margin:-12px;margin-left:200px; margin-right:10px;margin-top:-8px"
 					value="#{loginMBean.perfilImage}" width="45px" height="45px;" /></a>
 			<p:outputLabel
 				style="font-size: 15px;font-style: italic; margin-top:-5px"
 				value="#{loginMBean.nomeUsuario}" />
-			<p:link outcome="/pages/user/config" value="Config"
+			<p:link outcome="/pages/user/config" value="#{loginMBean.getLabel('config')}"
 				style="text-decoration: none;color:white; margin-top:7px; margin-left: 30px ">
 			</p:link>
 			<p:commandButton action="#{loginMBean.redirectAdmin}"
-				value="Alimentos" rendered="#{not loginMBean.usuarioTipo}"
+				value="#{loginMBean.getLabel('alimentos')}" rendered="#{not loginMBean.usuarioTipo}"
 				style="font-size:14.2px;background-color:green;color:black;margin-left:30px" />
 		</h:form>
 	</div>
