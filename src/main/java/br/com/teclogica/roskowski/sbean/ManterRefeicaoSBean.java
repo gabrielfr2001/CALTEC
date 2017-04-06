@@ -50,7 +50,6 @@ public class ManterRefeicaoSBean extends Conn implements IManterRefeicaoSBean {
 			else
 				return null;
 		} catch (Exception e) {
-			e.printStackTrace();
 			return null;
 		}
 	}

@@ -21,4 +21,6 @@ public interface IManterAlimentoSBean {
 	public TOAlimento carregarAlimento(String str);
 
 	public void atualizar(TOAlimento alimento);
+
+	public TOAlimento carregarNome(String nome);
 }

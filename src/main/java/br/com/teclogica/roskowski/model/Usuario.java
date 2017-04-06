@@ -17,6 +17,7 @@ public class Usuario {
 	private long limiteDiario;
 	private String senha;
 	private int stationaryKey;
+	private String locale;
 	private long totalIngerido;
 	private String tipo;
 
@@ -101,5 +102,13 @@ public class Usuario {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 }

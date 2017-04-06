@@ -26,7 +26,12 @@ public class ManterUsuarioSBean extends Conn implements IManterUsuarioSBean {
 	}
 
 	public void deletar(TOUsuario u) {
-		em.remove(u.toUsuario());
+		if (u.getId() != 0) {
+			Usuario unidade = em.find(Usuario.class, u.getId());
+			if (unidade != null) {
+				em.remove(unidade);
+			}
+		}
 	}
 
 	public TOUsuario carregarUsuario(String str) {

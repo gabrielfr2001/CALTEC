@@ -79,4 +79,13 @@ public class ManterAlimentoSBean extends Conn implements IManterAlimentoSBean {
 		else
 			return null;
 	}
+
+	@Override
+	public TOAlimento carregarNome(String nome) {
+		Query query = em.createQuery("SELECT a FROM Alimento a WHERE a.nome='" + nome + "'");
+		if (query.getResultList().size() > 0)
+			return (new TOAlimento().toTOAlimento((Alimento) query.getResultList().get(0)));
+		else
+			return null;
+	}
 }

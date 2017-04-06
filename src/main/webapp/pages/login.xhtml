@@ -76,6 +76,8 @@
 
 								<p:fileUpload styleClass="imagesOnlyMax1MB" skinSimple="true"
 									mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+									required="true"
+									requiredMessage="#{loginMBean.getLabel('perfil')}"
 									value="#{loginMBean.file}" sizeLimit="102400"
 									label="#{loginMBean.getLabel('escolher')}" />
 

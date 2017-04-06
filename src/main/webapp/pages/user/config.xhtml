@@ -7,6 +7,16 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 
 	<ui:define name="content">
-		<h1>Configurations</h1>
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="Trocar língua" />
+				<p:selectOneMenu value="#{applicationMBean.lingua}">
+					<f:selectItem itemValue="pt" itemLabel="Português" />
+					<f:selectItem itemValue="en" itemLabel="English" />
+				</p:selectOneMenu>
+				<p:commandButton action="#{applicationMBean.alterarIdioma}"
+					value="Alterar" icon="fa  fa-fw   fa-exchange" />
+			</h:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>

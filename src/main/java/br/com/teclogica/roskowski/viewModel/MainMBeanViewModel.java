@@ -90,4 +90,8 @@ public class MainMBeanViewModel {
 		sssBean.deletar(unidade);
 	}
 
+	public TORefeicao carregarRefeicao(long refeicaoId, IManterRefeicaoSBean ssssBean) {
+		return ssssBean.carregar(Long.toString(refeicaoId));
+	}
+
 }

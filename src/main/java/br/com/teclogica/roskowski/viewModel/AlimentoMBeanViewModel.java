@@ -19,8 +19,13 @@ public class AlimentoMBeanViewModel {
 		return lista;
 	}
 
-	public void adicionar(TOAlimento alimento, IManterAlimentoSBean ssBean) {
-		ssBean.atualizar(alimento);
+	public boolean adicionar(TOAlimento alimento, IManterAlimentoSBean ssBean) {
+		if (ssBean.carregarNome(alimento.getNome()) == null) {
+			ssBean.atualizar(alimento);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

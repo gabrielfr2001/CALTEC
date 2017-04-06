@@ -17,6 +17,7 @@ public class TOUsuario {
 	private String senha;
 	private String tipo;
 	private long totalIngerido;
+	private String locale;
 
 	public TOUsuario() {
 	}
@@ -89,6 +90,7 @@ public class TOUsuario {
 		user.setStationaryKey(stationaryKey);
 		user.setTotalIngerido(totalIngerido);
 		user.setTipo(tipo);
+		user.setLocale(getLocale());
 
 		return user;
 	}
@@ -105,6 +107,7 @@ public class TOUsuario {
 		this.imageLink = u.getImageLink();
 		this.stationaryKey = u.getStationaryKey();
 		this.tipo = u.getTipo();
+		this.setLocale(u.getLocale());
 		return this;
 	}
 
@@ -138,5 +141,13 @@ public class TOUsuario {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 }

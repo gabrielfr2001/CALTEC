@@ -11,7 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebFilter("/pages/*")
 public class AuthFilter implements Filter {
@@ -19,11 +18,10 @@ public class AuthFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		HttpSession session = request.getSession(false);
 
 		String loginURL = request.getContextPath() + "/pages/login.jsf";
 
-		if (session == null && !request.getRequestURI().equals(loginURL)) {
+		if (request.isRequestedSessionIdValid() && !request.getRequestURI().equals(loginURL)) {
 			response.sendRedirect(loginURL);
 		} else {
 			chain.doFilter(request, response);

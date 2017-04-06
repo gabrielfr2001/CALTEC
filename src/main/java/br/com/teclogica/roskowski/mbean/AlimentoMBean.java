@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -18,12 +19,13 @@ import br.com.teclogica.roskowski.to.TOAlimento;
 import br.com.teclogica.roskowski.viewModel.AlimentoMBeanViewModel;
 
 @ManagedBean(name = AlimentoMBean.MBEAN)
+
 @SessionScoped
 public class AlimentoMBean extends AbstractCommonMBean implements Serializable {
 
 	private static final long serialVersionUID = -907022416096648915L;
-	public static final String MBEAN = "alimento";
-	public static final String BUNDLE = MAIN_BUNDLE + "alimentoPage";
+	public static final String MBEAN = "alimentoMBean";
+	public static final String BUNDLE = MAIN_BUNDLE + "alimento";
 
 	@EJB
 	private IManterUsuarioSBean sBean = new ManterUsuarioSBean();
@@ -44,8 +46,16 @@ public class AlimentoMBean extends AbstractCommonMBean implements Serializable {
 
 	}
 
+	public void clear() {
+		alimento = new TOAlimento();
+	}
+
 	public void adicionar() {
-		lmbvw.adicionar(alimento, ssBean);
+		if (!lmbvw.adicionar(alimento, ssBean)) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage("sucess",
+					new FacesMessage("Falhamos em cadastrar seu alimento", "Um alimento com o mesmo nome já existe"));
+		}
 		if (statement == null) {
 			statement = "0";
 		}
@@ -54,6 +64,7 @@ public class AlimentoMBean extends AbstractCommonMBean implements Serializable {
 
 	public void pesquisar() {
 		setLista(lmbvw.pesquisar(getStatement(), ssBean));
+		alimento = new TOAlimento();
 	}
 
 	public String redirectGraphs() {

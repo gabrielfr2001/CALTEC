@@ -32,6 +32,7 @@ import br.com.teclogica.roskowski.to.TOUnidade;
 import br.com.teclogica.roskowski.viewModel.MainMBeanViewModel;
 
 @ManagedBean(name = MainMBean.MBEAN)
+
 @SessionScoped
 public class MainMBean extends AbstractCommonMBean implements Serializable {
 
@@ -111,6 +112,48 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 
 	public void deletar() {
 		lmbvw.deletar(unidade, sssBean);
+		TORefeicao tor = lmbvw.carregarRefeicao(unidade.getRefeicaoId(), ssssBean);
+
+		if (tor == null) {
+			tor = new TORefeicao();
+		}
+
+		tor.setData(data);
+		tor.setTotalCal(tor.getTotalCal() - unidade.getCal());
+		Long l = Long.parseLong(getUsuarioSessao());
+		tor.setUserid(l);
+		tor.setCorTotal(Integer
+				.toString(Integer.parseInt(tor.getCorTotal()) - Integer.parseInt(unidade.getAlimento().getColor())));
+		tor.setTotalUnit(tor.getTotalUnit() - 1);
+		tor.setTipo(tor.getTipo());
+		switch (tor.getTipo()) {
+
+		case CAFE_DA_MANHA:
+			r1 = tor;
+			break;
+		case LANCHE_DA_MANHA:
+			r2 = tor;
+			break;
+		case ALMOCO:
+			r3 = tor;
+			break;
+		case LANCHE_DA_TARDE:
+			r4 = tor;
+			break;
+		case JANTAR:
+			r5 = tor;
+			break;
+		case LANCHE_MADRUGADA:
+			r6 = tor;
+			break;
+		}
+
+		try {
+			lmbvw.salvar(tor, ssssBean);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		unidade = new TOUnidade();
 	}
 
@@ -194,44 +237,44 @@ public class MainMBean extends AbstractCommonMBean implements Serializable {
 	}
 
 	public TORefeicao adicionarRefeicao(TORefeicao tor) {
-
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		try {
-			data = ((Date) df.parse(df.format(data)));
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			try {
+				data = ((Date) df.parse(df.format(data)));
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
 
-		tor = lmbvw.carregarRefeicao(tor.getTipo(), ssssBean, data);
+			tor = lmbvw.carregarRefeicao(tor.getTipo(), ssssBean, data);
 
-		if (tor == null) {
-			tor = new TORefeicao();
+			if (tor == null) {
+				tor = new TORefeicao();
+			}
+			tor.setData(data);
+			unidade.setCal((double) Math.round(unidade.getQuantidade() * unidade.getAlimento().getCalorias()
+					/ unidade.getAlimento().getGramas() * 100) / 100);
+			tor.setTotalCal(tor.getTotalCal() + unidade.getCal());
+			Long l = Long.parseLong(getUsuarioSessao());
+			tor.setUserid(l);
+			tor.setCorTotal(Integer.toString(
+					Integer.parseInt(tor.getCorTotal()) + Integer.parseInt(unidade.getAlimento().getColor())));
+			tor.setTotalUnit(tor.getTotalUnit() + 1);
+			tor.setTipo(tor.getTipo());
+			try {
+				lmbvw.salvar(tor, ssssBean);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			unidade.setAlimento(lmbvw.carregarComida(unidade.getAlimento().getNome(), ssBean));
+			unidade.setRefeicaoId(tor.getId());
+			try {
+				lmbvw.salvar(unidade, sssBean);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			unidade = new TOUnidade();
+		} catch (Exception e) {
 		}
-		tor.setData(data);
-		unidade.setCal((double) Math.round(
-				unidade.getQuantidade() * unidade.getAlimento().getCalorias() / unidade.getAlimento().getGramas() * 100)
-				/ 100);
-		tor.setTotalCal(tor.getTotalCal() + unidade.getCal());
-		Long l = Long.parseLong(getUsuarioSessao());
-		tor.setUserid(l);
-		tor.setCorTotal(Integer
-				.toString(Integer.parseInt(tor.getCorTotal()) + Integer.parseInt(unidade.getAlimento().getColor())));
-		tor.setTotalUnit(tor.getTotalUnit() + 1);
-		tor.setTipo(tor.getTipo());
-		try {
-			lmbvw.salvar(tor, ssssBean);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		unidade.setAlimento(lmbvw.carregarComida(unidade.getAlimento().getNome(), ssBean));
-		unidade.setRefeicaoId(tor.getId());
-		try {
-			lmbvw.salvar(unidade, sssBean);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		unidade = new TOUnidade();
-
 		return tor;
 	}
 

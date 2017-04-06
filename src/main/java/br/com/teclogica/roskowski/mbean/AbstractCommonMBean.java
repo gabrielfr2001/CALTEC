@@ -1,11 +1,13 @@
 package br.com.teclogica.roskowski.mbean;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 @ManagedBean
 @SessionScoped
@@ -29,10 +31,20 @@ public abstract class AbstractCommonMBean {
 	}
 
 	private void loadBundle() {
-		if (this.bundle == null) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		if (session.getAttribute("locale") != null) {
+			this.bundle = ResourceBundle.getBundle(this.getBundleDir(),
+					new Locale(session.getAttribute("locale").toString()));
+		} else {
 			this.bundle = ResourceBundle.getBundle(this.getBundleDir(),
 					FacesContext.getCurrentInstance().getViewRoot().getLocale());
 		}
+
+	}
+
+	public void abc() {
+
 	}
 
 	public abstract String getBundleDir();

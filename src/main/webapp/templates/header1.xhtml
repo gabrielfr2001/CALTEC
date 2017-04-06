@@ -35,11 +35,17 @@
 			<p:outputLabel
 				style="font-size: 15px;font-style: italic; margin-top:-5px"
 				value="#{loginMBean.nomeUsuario}" />
-			<p:link outcome="/pages/user/config" value="#{loginMBean.getLabel('config')}"
+			<p:link outcome="/pages/user/config"
+				value="#{loginMBean.getLabel('config')}"
 				style="text-decoration: none;color:white; margin-top:7px; margin-left: 30px ">
 			</p:link>
 			<p:commandButton action="#{loginMBean.redirectAdmin}"
-				value="#{loginMBean.getLabel('alimentos')}" rendered="#{not loginMBean.usuarioTipo}"
+				value="#{loginMBean.getLabel('alimentos')}"
+				rendered="#{not loginMBean.usuarioTipo}"
+				style="font-size:14.2px;background-color:green;color:black;margin-left:30px" />
+
+			<p:commandButton action="#{loginMBean.logout()}"
+				value="#{loginMBean.getLabel('logout')}"
 				style="font-size:14.2px;background-color:green;color:black;margin-left:30px" />
 		</h:form>
 	</div>

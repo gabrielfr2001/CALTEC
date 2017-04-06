@@ -14,7 +14,6 @@
 	<composite:attribute name="colorDefiner" required="true" />
 	<composite:attribute name="ide" required="true" />
 	<composite:attribute name="var" required="true" />
-	<composite:attribute name="update" required="true" />
 </composite:interface>
 <composite:implementation>
 	<style>
@@ -76,9 +75,9 @@
 		</div>
 		<h:panelGrid columns="3"
 			style="background-color:white; margin-left: 2px">
-			<p:autoComplete id="simple0" placeholder="#{mainMBean.getLabel('place_alimento')}"
-				value="#{mainMBean.unidade.alimento}" required="true"
-				requiredMessage="#{mainMBean.getLabel('precisa')}"
+			<p:autoComplete id="simple0"
+				placeholder="#{mainMBean.getLabel('place_alimento')}"
+				value="#{mainMBean.unidade.alimento}"
 				completeMethod="#{mainMBean.complete}" var="comida"
 				itemLabel="#{comida.nome}" itemValue="#{comida}"
 				converter="gConverter" style="margin-left:6px" forceSelection="true"
@@ -102,7 +101,7 @@
 			<p:commandButton action="#{cc.attrs.adicionar}"
 				value="#{mainMBean.getLabel('inserir')}" icon="fa fa-plus"
 				style="font-size:14.2px;background-color:green;color:black"
-				update="#{cc.attrs.update}">
+				update="@form">
 			</p:commandButton>
 		</h:panelGrid>
 		<h:panelGroup>
@@ -111,7 +110,31 @@
 				emptyMessage="#{mainMBean.getLabel('empty')}"
 				style="padding:0px;height: 100px;background-color:none;background:none"
 				paginator="true" rows="3">
-				<composite:insertChildren />
+				<h:panelGrid id="pan"
+					style="margin:2px; background-color:#f5f5f5;padding-right:-2px;;padding-left:-2px;padding-bottom:-2px;
+					width:100%;box-shadow:0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3)">
+					<h:panelGroup>
+						<h:panelGrid columns="2"
+							style="background-color: #5DA4C9;width:100%; padding:5px">
+							<p:outputLabel value="#{food.alimento.nome}"
+								style="padding:1px;border-radius:4px;color:white" />
+							<i class="fa fa-circle"
+								style="color:#{food.alimento.compositeColor};float:right" title="Atenção"></i>
+						</h:panelGrid>
+						<h:panelGrid style="width:100%">
+							<h:panelGrid>
+								<p:outputLabel value="#{food.quantidade}g" />
+								<p:outputLabel value="#{food.cal}cal" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</h:panelGroup>
+					<p:commandButton value="#{mainMBean.getLabel('deletar')}"
+						style="width: 100%; height: 30px; font-size: 15px;margin-top:-4px"
+						action="#{mainMBean.deletar()}" update="@form">
+						<f:setPropertyActionListener target="#{mainMBean.unidade}"
+							value="#{food}" />
+					</p:commandButton>
+				</h:panelGrid>
 			</p:dataGrid>
 		</h:panelGroup>
 	</div>

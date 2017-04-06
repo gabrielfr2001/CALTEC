@@ -20,6 +20,7 @@ import br.com.teclogica.roskowski.to.TOUsuario;
 import br.com.teclogica.roskowski.viewModel.LoginMBeanViewModel;
 
 @ManagedBean(name = LoginMBean.MBEAN)
+
 @SessionScoped
 public class LoginMBean extends AbstractCommonMBean implements Serializable {
 
@@ -37,6 +38,11 @@ public class LoginMBean extends AbstractCommonMBean implements Serializable {
 	public LoginMBean() {
 		setUsuario(new TOUsuario());
 		lmbvw = new LoginMBeanViewModel();
+	}
+
+	public String logout() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "/pages/user/login?faces-redirect=true";
 	}
 
 	public String cadastrar() {

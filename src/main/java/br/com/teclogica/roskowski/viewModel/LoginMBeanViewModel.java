@@ -35,13 +35,14 @@ public class LoginMBeanViewModel {
 			u.setImageLink(u.getNome() + DIVIDER + u.getStationaryKey());
 			Filer.saveImage(img, u.getImageLink());
 			u.setTipo("user");
+			u.setLocale(FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage());
 			imusb.salvar(u);
 			u = imusb.carregarUsuario(u.getUsuario());
-
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 			session.setAttribute("user", u.getId());
 			session.setAttribute("user_tipo", u.getTipo());
+			session.setAttribute("locale", u.getLocale());
 
 			return "/pages/user/main?faces-redirect=true";
 		} else {
@@ -66,6 +67,7 @@ public class LoginMBeanViewModel {
 			HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 			session.setAttribute("user", check.getId());
 			session.setAttribute("user_tipo", check.getTipo());
+			session.setAttribute("locale", check.getLocale());
 			return "/pages/user/main?faces-redirect=true";
 		}
 
